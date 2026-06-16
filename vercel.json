@@ -6,6 +6,9 @@
             "runtime": "vercel-php@0.7.2"
         }
     },
+    "env": {
+        "COMPOSER_PROCESS_TIMEOUT": "0"
+    },
     "routes": [
         {
             "src": "/build/(.*)",
