@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
     "dev": "vite",
-    "build": "php artisan config:clear && php artisan view:clear && php artisan route:clear && vite build"
+    "build": "vite build"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
