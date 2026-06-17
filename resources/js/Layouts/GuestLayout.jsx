@@ -234,6 +234,48 @@ export default function GuestLayout({ children }) {
                     margin-top: 4px;
                 }
 
+                /* Captcha custom row */
+                .captcha-row {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    margin-top: 6px;
+                }
+                .captcha-image-wrapper {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    background: rgba(255, 255, 255, 0.04);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 8px;
+                    padding: 4px;
+                    flex-shrink: 0;
+                }
+                .captcha-image-wrapper img {
+                    height: 38px;
+                    width: auto;
+                    border-radius: 6px;
+                }
+                .captcha-input {
+                    flex: 1;
+                    margin-top: 0 !important;
+                }
+
+                /* Form actions container */
+                .auth-actions-container {
+                    margin-top: 24px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .auth-actions-container a {
+                    order: 1;
+                }
+                .auth-actions-container button {
+                    order: 2;
+                    width: auto !important;
+                }
+
                 @media(max-width: 480px) {
                     .auth-card {
                         padding: 28px 20px;
@@ -250,6 +292,34 @@ export default function GuestLayout({ children }) {
                     }
                     .auth-title-container h2 {
                         font-size: 1.4rem;
+                    }
+                    .captcha-row {
+                        flex-direction: column;
+                        align-items: stretch;
+                        gap: 10px;
+                    }
+                    .captcha-image-wrapper {
+                        justify-content: space-between;
+                        padding: 6px 10px;
+                        background: rgba(255, 255, 255, 0.05);
+                    }
+                    .captcha-image-wrapper img {
+                        height: 38px;
+                        flex-grow: 1;
+                        object-fit: contain;
+                    }
+                    .auth-actions-container {
+                        flex-direction: column;
+                        gap: 16px;
+                        align-items: stretch;
+                    }
+                    .auth-actions-container button {
+                        order: 1;
+                        width: 100% !important;
+                    }
+                    .auth-actions-container a {
+                        order: 2;
+                        text-align: center;
                     }
                 }
             `}</style>
