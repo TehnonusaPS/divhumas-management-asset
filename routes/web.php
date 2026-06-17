@@ -16,7 +16,7 @@ Route::get('/', function () {
 
 Route::get('/refresh-captcha', function () {
     return response()->json([
-        'captcha' => captcha_src()
+        'captcha' => \App\Services\CaptchaService::generate()
     ]);
 });
 

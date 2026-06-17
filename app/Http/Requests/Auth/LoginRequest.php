@@ -30,7 +30,14 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
-            'captcha' => ['required', 'captcha'],
+            'captcha' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (! \App\Services\CaptchaService::check($value)) {
+                        $fail('Kode verifikasi tidak sesuai.');
+                    }
+                }
+            ],
         ];
     }
 

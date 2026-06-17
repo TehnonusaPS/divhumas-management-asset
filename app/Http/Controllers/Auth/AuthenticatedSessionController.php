@@ -21,7 +21,7 @@ class AuthenticatedSessionController extends Controller
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
-            'captchaUrl' => captcha_src(),
+            'captchaUrl' => \App\Services\CaptchaService::generate(),
         ]);
     }
 
