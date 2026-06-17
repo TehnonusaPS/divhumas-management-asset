@@ -30,6 +30,18 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
+            'captcha' => ['required', 'captcha'],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     */
+    public function messages(): array
+    {
+        return [
+            'captcha.required' => 'Kode verifikasi wajib diisi.',
+            'captcha.captcha' => 'Kode verifikasi tidak sesuai.',
         ];
     }
 
