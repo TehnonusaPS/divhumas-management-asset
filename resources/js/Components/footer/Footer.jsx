@@ -44,16 +44,24 @@ export default function Footer({ plain = false }) {
                                 <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
                                 <span className="text-xs font-bold tracking-wide">PWA Terinstal</span>
                             </div>
-                        ) : isInstallable ? (
-                            <button onClick={installPWA} className="flex items-center gap-2 bg-gradient-to-r from-[#C0172A] to-[#8B0000] border border-red-500/30 rounded-lg px-4 py-1.5 hover:from-[#E8192C] hover:to-[#C0172A] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(232,25,44,0.25)] transition-all duration-300 group">
-                                <svg className="w-4.5 h-4.5 text-white group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                                <span className="text-xs font-bold tracking-wide text-white">Install PWA</span>
-                            </button>
                         ) : (
-                            <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/5 rounded-lg px-4 py-1.5 text-gray-400">
-                                <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-                                <span className="text-xs font-medium">Buka di Browser Mobile</span>
-                            </div>
+                            <button
+                                onClick={() => {
+                                    if (isInstallable) {
+                                        installPWA();
+                                    } else {
+                                        alert(
+                                            "Cara menginstal aplikasi SARANA:\n\n" +
+                                            "• Browser Chrome/Edge/Firefox: Klik menu titik tiga di kanan atas browser, lalu pilih 'Instal Aplikasi' atau 'Tambahkan ke Layar Utama'.\n" +
+                                            "• Browser Safari (iOS/macOS): Klik tombol 'Bagikan' (Share) di bagian bawah/atas layar, lalu pilih 'Tambahkan ke Layar Utama' (Add to Home Screen)."
+                                        );
+                                    }
+                                }}
+                                className="flex items-center gap-2 bg-gradient-to-r from-[#C0172A] to-[#8B0000] border border-red-500/30 rounded-lg px-4 py-1.5 hover:from-[#E8192C] hover:to-[#C0172A] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(232,25,44,0.25)] transition-all duration-300 group text-white"
+                            >
+                                <svg className="w-4.5 h-4.5 text-white group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                                <span className="text-xs font-bold tracking-wide">Install PWA</span>
+                            </button>
                         )}
                     </div>
                 )}
