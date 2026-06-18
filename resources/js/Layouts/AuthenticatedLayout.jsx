@@ -47,7 +47,7 @@ export default function AuthenticatedLayout({ header, children }) {
             {header && (
                 <div className="relative z-10 -mt-16 bg-cover bg-center bg-no-repeat w-full border-b border-slate-200 dark:border-border/40" style={{ backgroundImage: `url('/images/BG_Header.png')` }}>
                     {/* Primary gradient overlay to ensure text readability */}
-                    <div className="absolute inset-0 bg-white/80 dark:bg-[#0A0A0A]/90 backdrop-blur-[1px]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/10 dark:from-black/85 dark:via-black/50 dark:to-transparent backdrop-blur-[0.5px]"></div>
                     {/* Secondary gradient at the bottom to seamlessly blend into the background of the page */}
                     <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-50 dark:from-[#0A0A0A] to-transparent pointer-events-none"></div>
                     
