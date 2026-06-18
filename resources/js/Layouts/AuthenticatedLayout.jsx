@@ -45,14 +45,14 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* Premium Hero Section Wrapper */}
             {header && (
-                <div className="relative z-10 bg-cover bg-center bg-no-repeat w-full border-b border-slate-200 dark:border-border/40" style={{ backgroundImage: `url('/images/BG_Header.png')` }}>
+                <div className="relative z-10 -mt-16 bg-cover bg-center bg-no-repeat w-full border-b border-slate-200 dark:border-border/40" style={{ backgroundImage: `url('/images/BG_Header.png')` }}>
                     {/* Primary gradient overlay to ensure text readability */}
                     <div className="absolute inset-0 bg-white/80 dark:bg-[#0A0A0A]/90 backdrop-blur-[1px]"></div>
                     {/* Secondary gradient at the bottom to seamlessly blend into the background of the page */}
                     <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-50 dark:from-[#0A0A0A] to-transparent pointer-events-none"></div>
                     
                     {/* The Page Title Area */}
-                    <header className="relative z-20 pt-12 pb-10 md:pt-16 md:pb-12">
+                    <header className="relative z-20 pt-28 pb-10 md:pt-32 md:pb-12">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             {header}
                         </div>
