@@ -1,5 +1,5 @@
 import Button from '@/Components/ui/Button';
-import InputError from '@/Components/InputError';
+import InputError from '@/Components/ui/InputError';
 import Label from '@/Components/ui/Label';
 import Modal from '@/Components/ui/Modal';
 import Input from '@/Components/ui/Input';

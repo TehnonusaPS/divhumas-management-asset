@@ -1,4 +1,4 @@
-import InputError from '@/Components/InputError';
+import InputError from '@/Components/ui/InputError';
 import Button from '@/Components/ui/Button';
 import Input from '@/Components/ui/Input';
 import GuestLayout from '@/Layouts/GuestLayout';

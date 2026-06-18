@@ -1,5 +1,3 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/navbar/NavLink';
 import ResponsiveNavLink from '@/Components/navbar/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
