@@ -31,7 +31,7 @@ export default function AuthenticatedLayout({ header, children }) {
     };
 
     return (
-        <div className="min-h-screen flex flex-col relative overflow-x-hidden bg-slate-50 dark:bg-[#0A0A0A] text-slate-900 dark:text-white transition-colors duration-300 pb-16 md:pb-0">
+        <div className="min-h-screen flex flex-col relative bg-slate-50 dark:bg-[#0A0A0A] text-slate-900 dark:text-white transition-colors duration-300 pb-16 md:pb-0">
             {/* Backgrounds */}
             <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-[#0A0A0A] dark:via-[#111111] dark:to-[#160306] transition-colors duration-300" />
             
