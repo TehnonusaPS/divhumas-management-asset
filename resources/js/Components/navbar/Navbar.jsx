@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Navbar({ auth, theme, toggleTheme }) {
     return (
-        <nav className="sticky top-0 z-50 w-full bg-white/90 dark:bg-[#0A0A0A]/90 backdrop-blur-md border-b border-slate-200 dark:border-border/60 transition-colors duration-300">
+        <nav className="sticky top-0 z-50 w-full bg-card/85 backdrop-blur-md border-b border-border transition-colors duration-300">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     

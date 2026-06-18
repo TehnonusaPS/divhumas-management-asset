@@ -13,6 +13,7 @@ import DataTable from '@/Components/DataTable';
 import StatCard from '@/Components/StatCard';
 import ThemeToggle from '@/Components/ThemeToggle';
 import PageHeader from '@/Components/page-header/PageHeader';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 export default function ComponentShowcase() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -52,43 +53,40 @@ export default function ComponentShowcase() {
     ];
 
     return (
-        <>
-            <Head title="UI Component Showcase" />
-
-            {/* Background elements */}
-            <div className="bg-scene" />
-            <div className="grid-overlay" />
-
-            <div className="min-h-screen bg-transparent text-foreground relative z-10 transition-colors duration-300">
-                {/* Header */}
-                <header className="sticky top-0 z-50 bg-card/85 backdrop-blur-md border-b border-border px-6 py-4 flex items-center justify-between">
+        <AuthenticatedLayout
+            header={
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex items-center gap-3">
                         <div className="bg-primary/10 p-2 rounded-xl border border-primary/20">
-                            <Squares2X2Icon className="h-6 w-6 text-primary" />
+                            <Squares2X2Icon className="h-6 w-6 text-[#E8192C]" />
                         </div>
                         <div>
-                            <h1 className="font-extrabold text-lg tracking-wider text-foreground">UI SHOWCASE</h1>
-                            <span className="text-[10px] font-bold text-primary tracking-widest block uppercase">Divhumas Management Asset</span>
+                            <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white font-serif">
+                                UI Component Showcase
+                            </h2>
+                            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                Dokumentasi dan katalog komponen UI reusable untuk sistem manajemen aset Divhumas Polri.
+                            </p>
                         </div>
                     </div>
-
-                    <div className="flex items-center gap-4">
-                        <ThemeToggle />
-                        <Button variant="primary" size="sm" href="/">
+                    <div className="flex items-center gap-2">
+                        <Button variant="outline" size="sm" href="/">
                             Kembali ke Beranda
                         </Button>
                     </div>
-                </header>
+                </div>
+            }
+        >
+            <Head title="UI Component Showcase" />
 
-                {/* Main Content */}
-                <main className="max-w-7xl mx-auto px-6 py-10 space-y-10">
+            <div className="py-8">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
                     {/* Intro */}
-                    <div className="bg-card border border-border rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div className="bg-card border border-border rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 shadow-sm">
                         <div className="space-y-2 max-w-2xl">
-                            <h2 className="text-3xl font-extrabold tracking-tight">Component Gallery</h2>
+                            <h2 className="text-2xl font-extrabold tracking-tight">Component Gallery</h2>
                             <p className="text-muted text-sm leading-relaxed">
-                                Dokumentasi dan katalog komponen UI reusable untuk sistem manajemen aset Divhumas Polri.
-                                Seluruh komponen dirancang agar responsif terhadap mode terang/gelap secara otomatis.
+                                Seluruh komponen dirancang agar responsif terhadap mode terang/gelap secara otomatis. Gunakan filter di sebelah kanan untuk mencari komponen tertentu.
                             </p>
                         </div>
                         <div className="relative w-full md:w-80">
@@ -98,7 +96,7 @@ export default function ComponentShowcase() {
                                 placeholder="Cari komponen (contoh: button, input)..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl bg-background/50 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
                             />
                         </div>
                     </div>
@@ -291,13 +289,8 @@ export default function ComponentShowcase() {
                             </ShowcaseItem>
                         </ShowcaseSection>
                     </div>
-                </main>
-
-                {/* Footer */}
-                <footer className="border-t border-border mt-16 py-6 text-center text-xs text-muted bg-card">
-                    &copy; {new Date().getFullYear()} UI Showcase - Divisi Hubungan Masyarakat Polri.
-                </footer>
+                </div>
             </div>
-        </>
+        </AuthenticatedLayout>
     );
 }
