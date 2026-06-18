@@ -4,11 +4,11 @@ import React from 'react';
 export default function Navbar({ auth, theme, toggleTheme }) {
     return (
         <nav 
-            className="sticky top-0 z-50 w-full bg-cover bg-no-repeat border-b border-border transition-colors duration-300"
+            className="sticky top-0 z-50 w-full bg-cover bg-center bg-no-repeat border-b border-border/10 transition-colors duration-300"
             style={{ backgroundImage: "url('/images/BG_Header.png')", backgroundPosition: "top center" }}
         >
             {/* Primary gradient overlay to ensure text readability */}
-            <div className="absolute inset-0 bg-white/95 dark:bg-[#0A0A0A]/95 backdrop-blur-[1px] z-0"></div>
+            <div className="absolute inset-0 bg-white/70 dark:bg-[#0A0A0A]/80 backdrop-blur-[1px] z-0"></div>
 
             <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
