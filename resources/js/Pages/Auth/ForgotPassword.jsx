@@ -2,6 +2,7 @@ import InputError from '@/Components/ui/InputError';
 import Button from '@/Components/ui/Button';
 import Input from '@/Components/ui/Input';
 import GuestLayout from '@/Layouts/GuestLayout';
+import AuthCard from '@/Components/auth/AuthCard';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ForgotPassword({ status }) {
@@ -16,7 +17,7 @@ export default function ForgotPassword({ status }) {
     };
 
     return (
-        <GuestLayout>
+        <GuestLayout><AuthCard>
             <Head title="Forgot Password" />
 
             <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
@@ -50,6 +51,6 @@ export default function ForgotPassword({ status }) {
                     </Button>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthCard></GuestLayout>
     );
 }

@@ -3,6 +3,7 @@ import Label from '@/Components/ui/Label';
 import Button from '@/Components/ui/Button';
 import Input from '@/Components/ui/Input';
 import GuestLayout from '@/Layouts/GuestLayout';
+import AuthCard from '@/Components/auth/AuthCard';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
@@ -19,7 +20,7 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <GuestLayout>
+        <GuestLayout><AuthCard>
             <Head title="Confirm Password" />
 
             <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
@@ -50,6 +51,6 @@ export default function ConfirmPassword() {
                     </Button>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthCard></GuestLayout>
     );
 }

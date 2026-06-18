@@ -1,24 +1,27 @@
 import { Link } from '@inertiajs/react';
-import React from 'react';
 
-export default function NavLink({
-    active = false,
-    className = '',
-    children,
-    ...props
-}) {
+/**
+ * NavLink – desktop navigation link with active underline indicator.
+ * Styled for the dark glassmorphic navbar (always dark background).
+ *
+ * @param {string}          href    - Target URL
+ * @param {boolean}         active  - Whether this link is currently active
+ * @param {React.ReactNode} children
+ */
+export default function NavLink({ href, active = false, children }) {
     return (
         <Link
-            {...props}
-            className={
-                'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none ' +
-                (active
-                    ? 'border-[#E8192C] text-slate-900 dark:text-white focus:border-[#FF3347] dark:border-[#E8192C] dark:focus:border-[#FF3347]'
-                    : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700 focus:border-slate-300 focus:text-slate-700 dark:text-zinc-400 dark:hover:border-zinc-800 dark:hover:text-zinc-200 dark:focus:border-zinc-800 dark:focus:text-zinc-200') +
-                ' ' + className
-            }
+            href={href}
+            className={`relative px-3 py-2 text-sm rounded-lg transition-all duration-200 whitespace-nowrap ${
+                active
+                    ? 'text-white font-semibold'
+                    : 'text-zinc-400 hover:text-white hover:bg-white/10'
+            }`}
         >
             {children}
+            {active && (
+                <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E8192C]" />
+            )}
         </Link>
     );
 }

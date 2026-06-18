@@ -3,6 +3,7 @@ import Label from '@/Components/ui/Label';
 import Button from '@/Components/ui/Button';
 import Input from '@/Components/ui/Input';
 import GuestLayout from '@/Layouts/GuestLayout';
+import AuthCard from '@/Components/auth/AuthCard';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
@@ -22,7 +23,7 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout>
+        <GuestLayout><AuthCard>
             <Head title="Register" />
 
             <form onSubmit={submit}>
@@ -115,6 +116,6 @@ export default function Register() {
                     </Button>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthCard></GuestLayout>
     );
 }

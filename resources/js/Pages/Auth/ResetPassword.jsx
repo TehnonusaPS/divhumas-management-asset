@@ -3,6 +3,7 @@ import Label from '@/Components/ui/Label';
 import Button from '@/Components/ui/Button';
 import Input from '@/Components/ui/Input';
 import GuestLayout from '@/Layouts/GuestLayout';
+import AuthCard from '@/Components/auth/AuthCard';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ResetPassword({ token, email }) {
@@ -22,7 +23,7 @@ export default function ResetPassword({ token, email }) {
     };
 
     return (
-        <GuestLayout>
+        <GuestLayout><AuthCard>
             <Head title="Reset Password" />
 
             <form onSubmit={submit}>
@@ -89,6 +90,6 @@ export default function ResetPassword({ token, email }) {
                     </Button>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthCard></GuestLayout>
     );
 }

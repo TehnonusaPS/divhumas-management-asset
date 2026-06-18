@@ -5,6 +5,7 @@ import Label from '@/Components/ui/Label';
 import Button from '@/Components/ui/Button';
 import Input from '@/Components/ui/Input';
 import GuestLayout from '@/Layouts/GuestLayout';
+import AuthCard from '@/Components/auth/AuthCard';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword, captchaUrl }) {
@@ -38,12 +39,12 @@ export default function Login({ status, canResetPassword, captchaUrl }) {
     };
 
     return (
-        <GuestLayout>
+        <GuestLayout><AuthCard>
             <Head title="Masuk" />
 
-            <div className="auth-title-container">
-                <h2>Portal Masuk</h2>
-                <p>Sistem Manajemen Aset</p>
+            <div className="text-center mb-6">
+                <h2 className="font-serif text-2xl font-extrabold text-white mb-1">Portal Masuk</h2>
+                <p className="text-xs font-semibold text-[#E8192C] tracking-widest uppercase">Sistem Manajemen Aset</p>
             </div>
 
             {status && (
@@ -89,7 +90,7 @@ export default function Login({ status, canResetPassword, captchaUrl }) {
                 {/* Captcha Section */}
                 <div className="mt-4">
                     <Label htmlFor="captcha" value="Kode Verifikasi" />
-                    <div className="captcha-row">
+                    <div className="flex items-center gap-3 mt-1.5 max-sm:flex-col max-sm:items-stretch">
                         <Input
                             id="captcha"
                             type="text"
@@ -97,20 +98,21 @@ export default function Login({ status, canResetPassword, captchaUrl }) {
                             pattern="[0-9]*"
                             name="captcha"
                             value={data.captcha}
-                            className="captcha-input"
+                            className="flex-grow min-w-0"
                             onChange={(e) => setData('captcha', e.target.value)}
                             placeholder="Masukkan kode"
                             required
                         />
-                        <div className="captcha-image-wrapper">
+                        <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-1 shrink-0 max-sm:justify-between max-sm:p-1.5">
                             <img
                                 src={currentCaptchaUrl}
                                 alt="Captcha"
+                                className="h-9 w-auto rounded-lg object-contain px-2"
                             />
                             <button
                                 type="button"
                                 onClick={refreshCaptcha}
-                                className="flex items-center justify-center p-2 rounded-md hover:bg-white/10 text-white transition"
+                                className="flex items-center justify-center p-2 rounded-lg hover:bg-white/10 text-white transition-colors"
                                 title="Perbarui Captcha"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
@@ -131,26 +133,27 @@ export default function Login({ status, canResetPassword, captchaUrl }) {
                                 setData('remember', e.target.checked)
                             }
                         />
-                        <span className="remember-text">
+                        <span className="text-xs text-zinc-400 ml-2">
                             Ingat saya di perangkat ini
                         </span>
                     </label>
                 </div>
 
-                <div className="auth-actions-container">
+                <div className="mt-6 flex items-center justify-between gap-4 max-sm:flex-col-reverse max-sm:items-stretch">
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
+                            className="text-xs text-zinc-400 hover:text-red-500 hover:underline transition-all duration-200 max-sm:text-center"
                         >
                             Lupa kata sandi?
                         </Link>
                     )}
 
-                    <Button disabled={processing}>
+                    <Button disabled={processing} className="max-sm:w-full">
                         Masuk
                     </Button>
                 </div>
             </form>
-        </GuestLayout>
+        </AuthCard></GuestLayout>
     );
 }
