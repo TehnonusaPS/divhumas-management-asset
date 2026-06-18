@@ -19,16 +19,16 @@ export default function Statistik() {
             header={
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h2 className="text-2xl font-bold tracking-tight text-white font-serif">
+                        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white font-serif">
                             Dashboard & Statistik Aset
                         </h2>
-                        <p className="text-sm text-zinc-400 mt-1">
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                             Analisis nilai kapitalisasi aset, biaya pemeliharaan, dan lacak catatan audit trail perubahan data kritis.
                         </p>
                     </div>
                     <button 
                         onClick={handlePrint}
-                        className="inline-flex justify-center items-center gap-1.5 rounded-xl bg-black/40 border border-red-950/30 hover:border-red-500/30 px-4 py-2.5 text-sm font-semibold text-gray-200 hover:text-white hover:bg-[#1a1a1a] shadow-sm transition-all"
+                        className="inline-flex justify-center items-center gap-1.5 rounded-xl bg-black/40 border border-slate-200 dark:border-slate-800 hover:border-red-500/30 px-4 py-2.5 text-sm font-semibold text-gray-200 hover:text-slate-900 dark:text-white hover:bg-[#1a1a1a] shadow-sm transition-all"
                     >
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-3a2 2 0 00-2-2H9a2 2 0 00-2 2v3a2 2 0 002 2zm5-12h.01" /></svg>
                         Cetak Laporan Resmi
@@ -43,47 +43,47 @@ export default function Statistik() {
                     
                     {/* Charts & Graphs (Hidden in print) */}
                     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 print:hidden">
-                        <div className="lg:col-span-2 rounded-2xl bg-black/60 p-6 shadow-lg border border-red-950/25 backdrop-blur-md space-y-4">
-                            <h3 className="text-lg font-bold text-white font-serif">Grafik Penyusutan Aset IT (1 Tahun Terakhir)</h3>
+                        <div className="lg:col-span-2 rounded-2xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 p-6 shadow-lg border border-slate-200 dark:border-slate-800 backdrop-blur-md space-y-4">
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white font-serif">Grafik Penyusutan Aset IT (1 Tahun Terakhir)</h3>
                             
                             <div className="h-56 w-full flex items-end justify-between bg-black/40 rounded-xl p-6 border border-red-950/15">
                                 {/* Visualizing Depreciations with Bars */}
                                 <div className="flex flex-col items-center gap-2 w-full">
                                     <div className="bg-gradient-to-t from-[#8B0000] to-[#E8192C] w-8 rounded-t-lg transition-all duration-500 shadow-[0_0_10px_rgba(232,25,44,0.3)]" style={{ height: '140px' }}></div>
-                                    <span className="text-[10px] font-semibold text-zinc-500">Q1 2025</span>
+                                    <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500">Q1 2025</span>
                                 </div>
                                 <div className="flex flex-col items-center gap-2 w-full">
                                     <div className="bg-gradient-to-t from-[#8B0000] to-[#E8192C] w-8 rounded-t-lg transition-all duration-500 shadow-[0_0_10px_rgba(232,25,44,0.3)]" style={{ height: '125px' }}></div>
-                                    <span className="text-[10px] font-semibold text-zinc-500">Q2 2025</span>
+                                    <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500">Q2 2025</span>
                                 </div>
                                 <div className="flex flex-col items-center gap-2 w-full">
                                     <div className="bg-gradient-to-t from-[#8B0000] to-[#E8192C] w-8 rounded-t-lg transition-all duration-500 shadow-[0_0_10px_rgba(232,25,44,0.3)]" style={{ height: '110px' }}></div>
-                                    <span className="text-[10px] font-semibold text-zinc-500">Q3 2025</span>
+                                    <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500">Q3 2025</span>
                                 </div>
                                 <div className="flex flex-col items-center gap-2 w-full">
                                     <div className="bg-gradient-to-t from-[#8B0000] to-[#E8192C] w-8 rounded-t-lg transition-all duration-500 shadow-[0_0_10px_rgba(232,25,44,0.3)]" style={{ height: '95px' }}></div>
-                                    <span className="text-[10px] font-semibold text-zinc-500">Q4 2025</span>
+                                    <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500">Q4 2025</span>
                                 </div>
                                 <div className="flex flex-col items-center gap-2 w-full">
                                     <div className="bg-gradient-to-t from-[#8B0000] to-[#E8192C] w-8 rounded-t-lg transition-all duration-500 shadow-[0_0_10px_rgba(232,25,44,0.3)]" style={{ height: '80px' }}></div>
-                                    <span className="text-[10px] font-semibold text-zinc-500">Q1 2026</span>
+                                    <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500">Q1 2026</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="rounded-2xl bg-black/60 p-6 shadow-lg border border-red-950/25 backdrop-blur-md space-y-4">
-                            <h3 className="text-lg font-bold text-white font-serif">Alokasi Anggaran Pemeliharaan</h3>
+                        <div className="rounded-2xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 p-6 shadow-lg border border-slate-200 dark:border-slate-800 backdrop-blur-md space-y-4">
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white font-serif">Alokasi Anggaran Pemeliharaan</h3>
                             <div className="space-y-4">
                                 <div>
-                                    <div className="flex justify-between text-xs font-semibold mb-1.5"><span className="text-zinc-400">Komputer & Laptop</span><span className="text-white">Rp 18.200.000 (40%)</span></div>
+                                    <div className="flex justify-between text-xs font-semibold mb-1.5"><span className="text-slate-500 dark:text-slate-400">Komputer & Laptop</span><span className="text-slate-900 dark:text-white">Rp 18.200.000 (40%)</span></div>
                                     <div className="w-full bg-[#0a0a0a] border border-red-950/20 rounded-full h-2"><div className="bg-[#E8192C] h-2 rounded-full shadow-[0_0_8px_rgba(232,25,44,0.3)]" style={{ width: '40%' }}></div></div>
                                 </div>
                                 <div>
-                                    <div className="flex justify-between text-xs font-semibold mb-1.5"><span className="text-zinc-400">Jaringan & Server</span><span className="text-white">Rp 15.100.000 (33%)</span></div>
+                                    <div className="flex justify-between text-xs font-semibold mb-1.5"><span className="text-slate-500 dark:text-slate-400">Jaringan & Server</span><span className="text-slate-900 dark:text-white">Rp 15.100.000 (33%)</span></div>
                                     <div className="w-full bg-[#0a0a0a] border border-red-950/20 rounded-full h-2"><div className="bg-green-500 h-2 rounded-full" style={{ width: '33%' }}></div></div>
                                 </div>
                                 <div>
-                                    <div className="flex justify-between text-xs font-semibold mb-1.5"><span className="text-zinc-400">Fasilitas Gedung</span><span className="text-white">Rp 12.000.000 (27%)</span></div>
+                                    <div className="flex justify-between text-xs font-semibold mb-1.5"><span className="text-slate-500 dark:text-slate-400">Fasilitas Gedung</span><span className="text-slate-900 dark:text-white">Rp 12.000.000 (27%)</span></div>
                                     <div className="w-full bg-[#0a0a0a] border border-red-950/20 rounded-full h-2"><div className="bg-amber-500 h-2 rounded-full" style={{ width: '27%' }}></div></div>
                                 </div>
                             </div>
@@ -91,12 +91,12 @@ export default function Statistik() {
                     </div>
 
                     {/* Audit Trail Log (Hidden in print) */}
-                    <div className="rounded-2xl bg-black/60 p-6 shadow-lg border border-red-950/25 backdrop-blur-md space-y-4 print:hidden">
-                        <h3 className="text-lg font-bold text-white font-serif">Audit Trail Perubahan Data Kritis</h3>
+                    <div className="rounded-2xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 p-6 shadow-lg border border-slate-200 dark:border-slate-800 backdrop-blur-md space-y-4 print:hidden">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white font-serif">Audit Trail Perubahan Data Kritis</h3>
                         <div className="overflow-x-auto">
-                            <table className="w-full text-left text-sm text-zinc-300">
+                            <table className="w-full text-left text-sm text-slate-700 dark:text-slate-300">
                                 <thead>
-                                    <tr className="text-zinc-400 border-b border-red-950/25">
+                                    <tr className="text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
                                         <th className="pb-3 font-semibold">Tindakan Aktivitas</th>
                                         <th className="pb-3 font-semibold">User Pelaksana</th>
                                         <th className="pb-3 font-semibold">Role</th>
@@ -104,22 +104,22 @@ export default function Statistik() {
                                         <th className="pb-3 font-semibold text-right">Waktu Kejadian</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-red-950/15">
+                                <tbody className="divide-y divide-slate-200 dark:divide-slate-800/50">
                                     {auditTrails.map((trail) => (
                                         <tr key={trail.id} className="hover:bg-red-950/10 transition">
-                                            <td className="py-3.5 font-semibold text-white">{trail.action}</td>
-                                            <td className="py-3.5 text-zinc-350">{trail.user}</td>
-                                            <td className="py-3.5"><span className="text-xs uppercase bg-black/80 border border-red-950/25 px-2 py-0.5 rounded-md font-mono text-zinc-350">{trail.role}</span></td>
+                                            <td className="py-3.5 font-semibold text-slate-900 dark:text-white">{trail.action}</td>
+                                            <td className="py-3.5 text-slate-600 dark:text-slate-300">{trail.user}</td>
+                                            <td className="py-3.5"><span className="text-xs uppercase bg-slate-900/50 dark:bg-black/80 border border-slate-200 dark:border-slate-800 px-2 py-0.5 rounded-md font-mono text-slate-600 dark:text-slate-300">{trail.role}</span></td>
                                             <td className="py-3.5">
                                                 <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${
                                                     trail.level === 'Kritis' 
-                                                        ? 'bg-[#E8192C]/10 text-[#E8192C] border border-[#E8192C]/20' 
+                                                        ? 'bg-red-50 dark:bg-red-500/10 text-[#E8192C] border border-[#E8192C]/20' 
                                                         : 'bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20'
                                                 }`}>
                                                     {trail.level}
                                                 </span>
                                             </td>
-                                            <td className="py-3.5 text-right text-zinc-500 text-xs">{trail.date}</td>
+                                            <td className="py-3.5 text-right text-slate-400 dark:text-slate-500 text-xs">{trail.date}</td>
                                         </tr>
                                     ))}
                                 </tbody>

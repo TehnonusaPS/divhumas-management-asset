@@ -36,10 +36,10 @@ export default function Pengaduan() {
             header={
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h2 className="text-2xl font-bold tracking-tight text-white font-serif">
+                        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white font-serif">
                             Riwayat & Pengaduan Kerusakan Aset
                         </h2>
-                        <p className="text-sm text-zinc-400 mt-1">
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                             Laporkan kerusakan aset dinas dan pantau proses pemeliharaan berkala.
                         </p>
                     </div>
@@ -57,11 +57,11 @@ export default function Pengaduan() {
             <div className="py-8">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
                     
-                    <div className="overflow-hidden rounded-2xl bg-black/60 shadow-lg border border-red-950/25 backdrop-blur-md">
+                    <div className="overflow-hidden rounded-2xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 shadow-lg border border-slate-200 dark:border-slate-800 backdrop-blur-md">
                         <div className="p-6 space-y-4">
-                            <h3 className="text-lg font-bold text-white font-serif">Daftar Tiket Pengaduan Masuk</h3>
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white font-serif">Daftar Tiket Pengaduan Masuk</h3>
                             
-                            <div className="divide-y divide-red-950/15 space-y-4">
+                            <div className="divide-y divide-slate-200 dark:divide-slate-800/50 space-y-4">
                                 {tickets.map((ticket) => (
                                     <div key={ticket.id} className="pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                         <div className="space-y-1">
@@ -69,19 +69,19 @@ export default function Pengaduan() {
                                                 <span className="font-mono text-xs font-bold text-[#D4AF37]">{ticket.id}</span>
                                                 <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${
                                                     ticket.status === 'Baru' 
-                                                        ? 'bg-[#E8192C]/10 text-[#E8192C] border border-[#E8192C]/20' 
+                                                        ? 'bg-red-50 dark:bg-red-500/10 text-[#E8192C] border border-[#E8192C]/20' 
                                                         : ticket.status === 'Diproses' 
                                                             ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' 
                                                             : 'bg-green-500/10 text-green-400 border border-green-500/20'
                                                 }`}>
                                                     {ticket.status}
                                                 </span>
-                                                <span className="text-xs text-zinc-400">| Pelapor: {ticket.reporter}</span>
+                                                <span className="text-xs text-slate-500 dark:text-slate-400">| Pelapor: {ticket.reporter}</span>
                                             </div>
-                                            <h4 className="font-bold text-white mt-1.5">{ticket.asset}</h4>
-                                            <p className="text-sm text-zinc-350">{ticket.desc}</p>
+                                            <h4 className="font-bold text-slate-900 dark:text-white mt-1.5">{ticket.asset}</h4>
+                                            <p className="text-sm text-slate-600 dark:text-slate-300">{ticket.desc}</p>
                                         </div>
-                                        <div className="text-right text-xs text-zinc-500">
+                                        <div className="text-right text-xs text-slate-400 dark:text-slate-500">
                                             <span>Dilaporkan pada: {ticket.date}</span>
                                         </div>
                                     </div>
@@ -95,32 +95,32 @@ export default function Pengaduan() {
 
             {/* MOCK COMPLAINT MODAL FORM */}
             {formOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-                    <div className="w-full max-w-md bg-[#0c0c0c] border border-red-950/40 rounded-3xl p-6 shadow-2xl space-y-5 text-white">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 dark:bg-black/80 backdrop-blur-sm">
+                    <div className="w-full max-w-md bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-5 text-slate-900 dark:text-white">
                         <div className="flex justify-between items-center">
-                            <h3 className="text-lg font-bold text-white font-serif">Laporkan Kerusakan Aset</h3>
-                            <button onClick={() => setFormOpen(false)} className="rounded-full p-1.5 text-zinc-400 hover:bg-[#1a1a1a]">
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white font-serif">Laporkan Kerusakan Aset</h3>
+                            <button onClick={() => setFormOpen(false)} className="rounded-full p-1.5 text-slate-500 dark:text-slate-400 hover:bg-[#1a1a1a]">
                                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
                         </div>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-zinc-400 uppercase mb-1.5">Pilih Aset Bermasalah</label>
+                                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1.5">Pilih Aset Bermasalah</label>
                                 <input 
                                     type="text" 
                                     required
                                     value={formData.asset}
                                     onChange={(e) => setFormData({ ...formData, asset: e.target.value })}
-                                    className="w-full rounded-xl border border-red-950/30 bg-black/45 p-2.5 text-sm text-white focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all" 
+                                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 border-slate-300 dark:border-slate-800 p-2.5 text-sm text-slate-900 dark:text-white focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all" 
                                     placeholder="Contoh: Laptop Lenovo L14 / AC Ruang Utama" 
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-zinc-400 uppercase mb-1.5">Kategori Barang</label>
+                                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1.5">Kategori Barang</label>
                                 <select 
                                     value={formData.category}
                                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                    className="w-full rounded-xl border border-red-950/30 bg-[#0c0c0c] p-2.5 text-sm text-zinc-300 focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 p-2.5 text-sm text-slate-700 dark:text-slate-300 focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all"
                                 >
                                     <option value="Komputer">Komputer / Laptop</option>
                                     <option value="Kamera">Kamera / Audio</option>
@@ -129,12 +129,12 @@ export default function Pengaduan() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-zinc-400 uppercase mb-1.5">Detail Kronologi Kerusakan</label>
+                                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1.5">Detail Kronologi Kerusakan</label>
                                 <textarea 
                                     required
                                     value={formData.desc}
                                     onChange={(e) => setFormData({ ...formData, desc: e.target.value })}
-                                    className="w-full rounded-xl border border-red-950/30 bg-black/45 p-2.5 text-sm text-white focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all h-28" 
+                                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 border-slate-300 dark:border-slate-800 p-2.5 text-sm text-slate-900 dark:text-white focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all h-28" 
                                     placeholder="Jelaskan detail kendala barang, indikasi kerusakan, atau kronologi kejadian..." 
                                 />
                             </div>
