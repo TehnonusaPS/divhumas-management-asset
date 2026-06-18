@@ -8,9 +8,9 @@ export default function Footer({ plain = false }) {
             className={`text-white pt-4 pb-2.5 relative overflow-hidden mt-auto ${
                 plain
                     ? 'border-t border-white/5 bg-[#0A0A0A]/60 backdrop-blur-md'
-                    : 'bg-cover bg-center bg-no-repeat shadow-[inset_0_12px_30px_rgba(0,0,0,0.5)]'
+                    : 'bg-cover bg-no-repeat shadow-[inset_0_12px_30px_rgba(0,0,0,0.5)]'
             }`}
-            style={!plain ? { backgroundImage: `url('/images/BG_Footer.png')` } : {}}
+            style={!plain ? { backgroundImage: `url('/images/BG_Footer.png')`, backgroundPosition: 'center 60%' } : {}}
         >
             {/* Dark gradient overlay for a polished premium look */}
             {!plain && (
