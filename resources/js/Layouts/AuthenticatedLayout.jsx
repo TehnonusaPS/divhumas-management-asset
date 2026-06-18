@@ -1,10 +1,10 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import NavLink from '@/Components/navbar/NavLink';
+import ResponsiveNavLink from '@/Components/navbar/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
-import Header from '@/Components/Header';
+import Navbar from '@/Components/navbar/Navbar';
 import Footer from '@/Components/Footer';
 
 export default function AuthenticatedLayout({ header, children }) {
@@ -42,27 +42,25 @@ export default function AuthenticatedLayout({ header, children }) {
                 style={{ backgroundImage: 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)', backgroundSize: '60px 60px' }} 
             />
 
-
+            {/* The Top Navigation Bar */}
+            <Navbar auth={auth} theme={theme} toggleTheme={toggleTheme} />
 
             {/* Premium Hero Section Wrapper */}
-            <div className="relative z-10 bg-cover bg-center bg-no-repeat w-full" style={{ backgroundImage: `url('/images/BG_Header.png')` }}>
-                {/* Primary gradient overlay to ensure text readability */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/90 via-black/60 to-black/30 backdrop-blur-[1px]"></div>
-                {/* Secondary gradient at the bottom to seamlessly blend into the dark red/black background of the page */}
-                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
-                
-                {/* The Top Navigation Bar */}
-                <Header auth={auth} theme={theme} toggleTheme={toggleTheme} />
-
-                {/* The Page Title Area */}
-                {header && (
-                    <header className="relative z-20 pt-24 pb-16 md:pt-24 md:pb-12 border-b border-white/5">
+            {header && (
+                <div className="relative z-10 bg-cover bg-center bg-no-repeat w-full border-b border-slate-200 dark:border-border/40" style={{ backgroundImage: `url('/images/BG_Header.png')` }}>
+                    {/* Primary gradient overlay to ensure text readability */}
+                    <div className="absolute inset-0 bg-white/80 dark:bg-[#0A0A0A]/90 backdrop-blur-[1px]"></div>
+                    {/* Secondary gradient at the bottom to seamlessly blend into the background of the page */}
+                    <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-50 dark:from-[#0A0A0A] to-transparent pointer-events-none"></div>
+                    
+                    {/* The Page Title Area */}
+                    <header className="relative z-20 pt-12 pb-10 md:pt-16 md:pb-12">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             {header}
                         </div>
                     </header>
-                )}
-            </div>
+                </div>
+            )}
  
             <main className="relative z-20 flex-grow">{children}</main>
 
