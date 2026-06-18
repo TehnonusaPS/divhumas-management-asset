@@ -12,7 +12,7 @@ import Badge from '@/Components/ui/Badge';
 import DataTable from '@/Components/DataTable';
 import StatCard from '@/Components/StatCard';
 import ThemeToggle from '@/Components/ThemeToggle';
-import PageHeader from '@/Components/PageHeader';
+import PageHeader from '@/Components/page-header/PageHeader';
 
 export default function ComponentShowcase() {
     const [searchQuery, setSearchQuery] = useState('');

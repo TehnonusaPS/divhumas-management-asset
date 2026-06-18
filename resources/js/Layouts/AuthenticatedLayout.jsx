@@ -3,7 +3,7 @@ import ResponsiveNavLink from '@/Components/navbar/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import Navbar from '@/Components/navbar/Navbar';
-import Footer from '@/Components/Footer';
+import Footer from '@/Components/footer/Footer';
 
 export default function AuthenticatedLayout({ header, children }) {
     const { auth } = usePage().props;
