@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-export default function Label({ className = '', children, ...props }) {
+export default function Label({ className = '', value, children, ...props }) {
     return (
         <label
             className={cn(
@@ -10,7 +10,7 @@ export default function Label({ className = '', children, ...props }) {
             )}
             {...props}
         >
-            {children}
+            {value ? value : children}
         </label>
     );
 }

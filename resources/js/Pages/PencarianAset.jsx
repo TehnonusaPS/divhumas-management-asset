@@ -1,6 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
+import DataTable from '@/Components/DataTable';
+import Button from '@/Components/ui/Button';
+import Input from '@/Components/ui/Input';
+import Select from '@/Components/ui/Select';
+import Modal from '@/Components/ui/Modal';
 
 export default function PencarianAset() {
     const mockAssets = [
@@ -30,6 +35,32 @@ export default function PencarianAset() {
         setQrModalOpen(true);
     };
 
+    const columns = [
+        { key: 'id', label: 'Kode Aset', className: 'font-mono text-xs font-bold text-[#D4AF37]' },
+        { key: 'name', label: 'Nama Barang', className: 'font-semibold text-foreground' },
+        { key: 'type', label: 'Kategori' },
+        { key: 'serial', label: 'Nomor Seri', className: 'font-mono text-xs text-muted' },
+        {
+            key: 'actions',
+            label: 'Label QR',
+            className: 'text-center',
+            cellClassName: 'text-center flex justify-center',
+            render: (row) => (
+                <Button 
+                    onClick={() => openQrModal(row)}
+                    variant="outline"
+                    size="sm"
+                    className="inline-flex items-center gap-1.5"
+                >
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01" />
+                    </svg>
+                    Tampilkan QR
+                </Button>
+            )
+        }
+    ];
+
     return (
         <AuthenticatedLayout
             header={
@@ -49,25 +80,27 @@ export default function PencarianAset() {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
                     
                     {/* Filters Container */}
-                    <div className="rounded-2xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 p-6 shadow-lg border border-slate-200 dark:border-slate-800 backdrop-blur-md flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div className="rounded-2xl bg-card border border-border p-6 shadow-lg backdrop-blur-md flex flex-col md:flex-row gap-4 items-center justify-between">
                         <div className="relative w-full md:max-w-md">
-                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 dark:text-slate-500">
-                                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted/60">
+                                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
                             </span>
-                            <input 
+                            <Input 
                                 type="text"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 border-slate-300 dark:border-slate-800 py-2.5 pl-10 pr-4 text-sm text-slate-900 dark:text-white focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all"
+                                className="pl-10"
                                 placeholder="Cari nama barang, kode aset, atau S/N..."
                             />
                         </div>
-                        <div className="flex gap-2 w-full md:w-auto items-center">
-                            <span className="text-sm font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">Filter Kategori:</span>
-                            <select 
+                        <div className="flex gap-3 w-full md:w-auto items-center">
+                            <span className="text-sm font-semibold text-muted whitespace-nowrap">Filter Kategori:</span>
+                            <Select 
                                 value={filterType}
                                 onChange={(e) => setFilterType(e.target.value)}
-                                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 py-2 px-3 text-sm font-medium text-slate-700 dark:text-slate-300 focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all"
+                                className="w-full md:w-[200px]"
                             >
                                 <option value="Semua">Semua Kategori</option>
                                 <option value="Komputer">Komputer</option>
@@ -75,67 +108,34 @@ export default function PencarianAset() {
                                 <option value="Kamera">Kamera</option>
                                 <option value="Kendaraan">Kendaraan</option>
                                 <option value="Fasilitas">Fasilitas</option>
-                            </select>
+                            </Select>
                         </div>
                     </div>
 
                     {/* Results Table */}
-                    <div className="overflow-hidden rounded-2xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 shadow-lg border border-slate-200 dark:border-slate-800 backdrop-blur-md">
-                        <div className="p-6 overflow-x-auto">
-                            {filteredAssets.length > 0 ? (
-                                <table className="w-full text-left text-sm text-slate-700 dark:text-slate-300">
-                                    <thead>
-                                        <tr className="text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
-                                            <th className="pb-3 font-semibold">Kode Aset</th>
-                                            <th className="pb-3 font-semibold">Nama Barang</th>
-                                            <th className="pb-3 font-semibold">Kategori</th>
-                                            <th className="pb-3 font-semibold">Serial Number</th>
-                                            <th className="pb-3 font-semibold text-center">Label QR</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-slate-200 dark:divide-slate-800/50">
-                                        {filteredAssets.map((asset) => (
-                                            <tr key={asset.id} className="hover:bg-red-950/10 transition">
-                                                <td className="py-4 font-mono text-xs font-bold text-[#D4AF37]">{asset.id}</td>
-                                                <td className="py-4 font-semibold text-slate-900 dark:text-white">{asset.name}</td>
-                                                <td className="py-4 text-slate-700 dark:text-slate-300">{asset.type}</td>
-                                                <td className="py-4 font-mono text-xs text-slate-400 dark:text-slate-500">{asset.serial}</td>
-                                                <td className="py-4 text-center">
-                                                    <button 
-                                                        onClick={() => openQrModal(asset)}
-                                                        className="inline-flex items-center gap-1.5 rounded-lg bg-black/40 border border-slate-200 dark:border-slate-800 hover:border-red-500/30 text-gray-300 hover:text-slate-900 dark:text-white px-3 py-1.5 text-xs font-semibold hover:bg-red-950/20 transition-all"
-                                                    >
-                                                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01" /></svg>
-                                                        Tampilkan QR
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            ) : (
-                                <div className="text-center py-10 text-slate-400 dark:text-slate-500">
-                                    Aset yang Anda cari tidak ditemukan.
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                    <DataTable
+                        columns={columns}
+                        data={filteredAssets}
+                        emptyText="Aset yang Anda cari tidak ditemukan."
+                    />
 
                 </div>
             </div>
 
             {/* QR CODE LABEL VISUAL MODAL */}
-            {qrModalOpen && selectedAsset && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 dark:bg-black/80 backdrop-blur-sm">
-                    <div className="w-full max-w-sm bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6 text-slate-900 dark:text-white">
-                        <div className="flex justify-between items-center pb-2 border-b border-red-950/20">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white font-serif">Label QR Aset Resmi</h3>
-                            <button onClick={() => setQrModalOpen(false)} className="rounded-full p-1.5 text-slate-500 dark:text-slate-400 hover:bg-[#1a1a1a]">
-                                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                            </button>
-                        </div>
-                        
-                        {/* QR Code Graphic Label */}
+            <Modal show={qrModalOpen} onClose={() => setQrModalOpen(false)} maxWidth="sm" className="p-6 space-y-5">
+                <div className="flex justify-between items-center pb-2 border-b border-border">
+                    <h3 className="text-lg font-bold text-foreground font-serif">Label QR Aset Resmi</h3>
+                    <button onClick={() => setQrModalOpen(false)} className="rounded-full p-1.5 text-muted hover:bg-background cursor-pointer">
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                {/* QR Code Graphic Label */}
+                {selectedAsset && (
+                    <>
                         <div className="p-4 bg-white rounded-2xl border-2 border-gray-150 flex flex-col items-center gap-3 text-black">
                             <p className="text-[10px] tracking-widest font-extrabold uppercase text-gray-500">DIVISI HUMAS POLRI</p>
                             {/* Visual QR Code Generator Simulation */}
@@ -152,7 +152,7 @@ export default function PencarianAset() {
                                     <rect x="5" y="70" width="25" height="25" />
                                     <rect x="10" y="75" width="15" height="15" fill="white" />
                                     <rect x="13" y="78" width="9" height="9" />
- 
+
                                     <rect x="40" y="15" width="10" height="5" />
                                     <rect x="55" y="25" width="5" height="15" />
                                     <rect x="35" y="45" width="20" height="10" />
@@ -167,24 +167,26 @@ export default function PencarianAset() {
                                 <p className="text-[9px] text-gray-400">S/N: {selectedAsset.serial}</p>
                             </div>
                         </div>
- 
+
                         <div className="flex gap-2">
-                            <button 
+                            <Button 
                                 onClick={() => alert('Mengirim perintah cetak ke Printer Label...')}
-                                className="flex-1 inline-flex justify-center items-center gap-1.5 rounded-xl bg-gradient-to-r from-[#C0172A] to-[#8B0000] border border-red-500/30 py-3 text-xs font-bold text-white hover:from-[#E8192C] hover:to-[#C0172A] shadow-md transition-all duration-300"
+                                variant="primary"
+                                className="flex-1"
                             >
                                 Cetak Label
-                            </button>
-                            <button 
+                            </Button>
+                            <Button 
                                 onClick={() => setQrModalOpen(false)}
-                                className="flex-1 rounded-xl bg-black/40 border border-slate-200 dark:border-slate-800 hover:border-red-500/30 py-3 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-[#1a1a1a] transition-all"
+                                variant="outline"
+                                className="flex-1"
                             >
                                 Tutup
-                            </button>
+                            </Button>
                         </div>
-                    </div>
-                </div>
-            )}
+                    </>
+                )}
+            </Modal>
         </AuthenticatedLayout>
     );
 }

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Checkbox from '@/Components/Checkbox';
+import Checkbox from '@/Components/ui/Checkbox';
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import Label from '@/Components/ui/Label';
+import Button from '@/Components/ui/Button';
+import Input from '@/Components/ui/Input';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
@@ -54,9 +54,9 @@ export default function Login({ status, canResetPassword, captchaUrl }) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <Label htmlFor="email" value="Email" />
 
-                    <TextInput
+                    <Input
                         id="email"
                         type="email"
                         name="email"
@@ -71,9 +71,9 @@ export default function Login({ status, canResetPassword, captchaUrl }) {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <Label htmlFor="password" value="Password" />
 
-                    <TextInput
+                    <Input
                         id="password"
                         type="password"
                         name="password"
@@ -88,9 +88,9 @@ export default function Login({ status, canResetPassword, captchaUrl }) {
 
                 {/* Captcha Section */}
                 <div className="mt-4">
-                    <InputLabel htmlFor="captcha" value="Kode Verifikasi" />
+                    <Label htmlFor="captcha" value="Kode Verifikasi" />
                     <div className="captcha-row">
-                        <TextInput
+                        <Input
                             id="captcha"
                             type="text"
                             inputMode="numeric"
@@ -146,9 +146,9 @@ export default function Login({ status, canResetPassword, captchaUrl }) {
                         </Link>
                     )}
 
-                    <PrimaryButton disabled={processing}>
+                    <Button disabled={processing}>
                         Masuk
-                    </PrimaryButton>
+                    </Button>
                 </div>
             </form>
         </GuestLayout>

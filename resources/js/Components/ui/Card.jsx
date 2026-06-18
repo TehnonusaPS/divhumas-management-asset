@@ -5,7 +5,7 @@ export function Card({ className = '', children, ...props }) {
     return (
         <div
             className={cn(
-                'bg-card border border-border rounded-2xl p-6 transition-all relative overflow-hidden',
+                'bg-card border border-border rounded-2xl p-6 transition-all',
                 className
             )}
             {...props}
@@ -27,7 +27,7 @@ export function CardTitle({ className = '', children, ...props }) {
     return (
         <h3
             className={cn(
-                'text-lg font-bold leading-none tracking-tight text-foreground',
+                'text-lg font-bold leading-none tracking-tight text-foreground font-serif',
                 className
             )}
             {...props}

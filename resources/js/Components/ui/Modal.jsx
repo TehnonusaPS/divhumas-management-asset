@@ -1,5 +1,5 @@
-import React from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 
 export default function Modal({
@@ -34,7 +34,7 @@ export default function Modal({
                 className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4 transition-all sm:p-0"
                 onClose={close}
             >
-                {/* Backdrop with premium glass blur */}
+                {/* Backdrop */}
                 <TransitionChild
                     enter="ease-out duration-300"
                     enterFrom="opacity-0"
@@ -46,7 +46,7 @@ export default function Modal({
                     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" />
                 </TransitionChild>
 
-                {/* Panel Container */}
+                {/* Panel */}
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <TransitionChild
                         enter="ease-out duration-300"

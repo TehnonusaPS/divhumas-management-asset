@@ -9,9 +9,6 @@ import Select from '@/Components/ui/Select';
 import Textarea from '@/Components/ui/Textarea';
 import Checkbox from '@/Components/ui/Checkbox';
 import Badge from '@/Components/ui/Badge';
-import Label from '@/Components/ui/Label';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/Components/ui/Card';
-import Modal from '@/Components/Modal';
 import DataTable from '@/Components/DataTable';
 import StatCard from '@/Components/StatCard';
 import ThemeToggle from '@/Components/ThemeToggle';
@@ -20,7 +17,6 @@ import PageHeader from '@/Components/PageHeader';
 export default function ComponentShowcase() {
     const [searchQuery, setSearchQuery] = useState('');
     const [testCheckbox, setTestCheckbox] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Filter helper
     const match = (keywords) => {
@@ -87,7 +83,7 @@ export default function ComponentShowcase() {
                 {/* Main Content */}
                 <main className="max-w-7xl mx-auto px-6 py-10 space-y-10">
                     {/* Intro */}
-                    <Card className="md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div className="bg-card border border-border rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                         <div className="space-y-2 max-w-2xl">
                             <h2 className="text-3xl font-extrabold tracking-tight">Component Gallery</h2>
                             <p className="text-muted text-sm leading-relaxed">
@@ -105,7 +101,7 @@ export default function ComponentShowcase() {
                                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:ring-2 focus:ring-primary focus:border-primary transition"
                             />
                         </div>
-                    </Card>
+                    </div>
 
                     {/* Component Sections Container */}
                     <div className="space-y-12">
@@ -172,11 +168,11 @@ export default function ComponentShowcase() {
                             <ShowcaseItem label="Text Input & Dropdown">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label>Nama Lengkap</Label>
+                                        <label className="text-xs font-bold text-muted uppercase tracking-wider">Nama Lengkap</label>
                                         <Input placeholder="Contoh: Aipda Budi Santoso" />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label>Kategori Aset</Label>
+                                        <label className="text-xs font-bold text-muted uppercase tracking-wider">Kategori Aset</label>
                                         <Select>
                                             <option value="">Pilih Kategori...</option>
                                             <option value="it">Perangkat IT</option>
@@ -190,7 +186,7 @@ export default function ComponentShowcase() {
                             <ShowcaseItem label="Textarea & Checkbox">
                                 <div className="space-y-6">
                                     <div className="space-y-2">
-                                        <Label>Keterangan Kondisi</Label>
+                                        <label className="text-xs font-bold text-muted uppercase tracking-wider">Keterangan Kondisi</label>
                                         <Textarea placeholder="Tuliskan deskripsi kondisi detail aset di sini..." />
                                     </div>
                                     <div className="flex flex-col gap-3">
@@ -236,13 +232,14 @@ export default function ComponentShowcase() {
                             </ShowcaseItem>
                         </ShowcaseSection>
 
+                        {/* SECTION 4: TABLES & COMPOSITE STATS */}
                         <ShowcaseSection
                             title="Composite Components"
                             description="Komponen terintegrasi seperti header halaman, kartu stats, dan data tabel."
-                            match={match('table data stats header page card dialog modal')}
+                            match={match('table data stats header page card')}
                         >
                             <ShowcaseItem label="Halaman Header (PageHeader)">
-                                <Card className="bg-card/40">
+                                <div className="p-6 border border-border bg-card/40 rounded-2xl">
                                     <PageHeader
                                         title="Manajemen Aset Fisik"
                                         description="Kelola dan audit seluruh aset humas polri secara terpusat."
@@ -257,30 +254,6 @@ export default function ComponentShowcase() {
                                             </>
                                         }
                                     />
-                                </Card>
-                            </ShowcaseItem>
-
-                            <ShowcaseItem label="Dialog & Modal (Modal)">
-                                <div>
-                                    <Button variant="outline" onClick={() => setIsModalOpen(true)}>
-                                        Buka Modal Demo
-                                    </Button>
-                                    
-                                    <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)} maxWidth="md">
-                                        <Card className="border-0 bg-transparent shadow-none p-6">
-                                            <CardHeader className="p-0">
-                                                <CardTitle className="text-xl">Konfirmasi Penghapusan Aset</CardTitle>
-                                                <CardDescription>Tindakan ini tidak dapat dibatalkan.</CardDescription>
-                                            </CardHeader>
-                                            <CardContent className="px-0 py-4 text-sm text-muted">
-                                                Apakah Anda yakin ingin menghapus aset <strong>AST-2026-001 (MacBook Pro M3)</strong> secara permanen dari basis data?
-                                            </CardContent>
-                                            <CardFooter className="px-0 pb-0 pt-4 flex justify-end gap-3 border-t border-border/40">
-                                                <Button variant="ghost" onClick={() => setIsModalOpen(false)}>Batal</Button>
-                                                <Button variant="danger" onClick={() => setIsModalOpen(false)}>Hapus Aset</Button>
-                                            </CardFooter>
-                                        </Card>
-                                    </Modal>
                                 </div>
                             </ShowcaseItem>
 

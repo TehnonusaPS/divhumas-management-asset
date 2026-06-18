@@ -1,6 +1,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/Components/ui/Card';
+import Badge from '@/Components/ui/Badge';
+import Modal from '@/Components/ui/Modal';
+import Label from '@/Components/ui/Label';
+import Input from '@/Components/ui/Input';
+import Select from '@/Components/ui/Select';
+import Textarea from '@/Components/ui/Textarea';
+import Button from '@/Components/ui/Button';
 
 export default function Pengaduan() {
     const { auth } = usePage().props;
@@ -43,12 +51,12 @@ export default function Pengaduan() {
                             Laporkan kerusakan aset dinas dan pantau proses pemeliharaan berkala.
                         </p>
                     </div>
-                    <button 
+                    <Button 
                         onClick={() => setFormOpen(true)}
-                        className="inline-flex justify-center items-center gap-1.5 rounded-xl bg-gradient-to-r from-[#C0172A] to-[#8B0000] border border-red-500/30 px-4 py-2.5 text-sm font-semibold text-white hover:from-[#E8192C] hover:to-[#C0172A] shadow-md transition-all duration-300"
+                        variant="primary"
                     >
                         + Ajukan Pengaduan Baru
-                    </button>
+                    </Button>
                 </div>
             }
         >
@@ -57,25 +65,20 @@ export default function Pengaduan() {
             <div className="py-8">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
                     
-                    <div className="overflow-hidden rounded-2xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 shadow-lg border border-slate-200 dark:border-slate-800 backdrop-blur-md">
-                        <div className="p-6 space-y-4">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white font-serif">Daftar Tiket Pengaduan Masuk</h3>
-                            
-                            <div className="divide-y divide-slate-200 dark:divide-slate-800/50 space-y-4">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Daftar Tiket Pengaduan Masuk</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="divide-y divide-border/60 space-y-4">
                                 {tickets.map((ticket) => (
                                     <div key={ticket.id} className="pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2 flex-wrap">
                                                 <span className="font-mono text-xs font-bold text-[#D4AF37]">{ticket.id}</span>
-                                                <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${
-                                                    ticket.status === 'Baru' 
-                                                        ? 'bg-red-50 dark:bg-red-500/10 text-[#E8192C] border border-[#E8192C]/20' 
-                                                        : ticket.status === 'Diproses' 
-                                                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' 
-                                                            : 'bg-green-500/10 text-green-400 border border-green-500/20'
-                                                }`}>
+                                                <Badge variant={ticket.status === 'Baru' ? 'danger' : ticket.status === 'Diproses' ? 'warning' : 'success'}>
                                                     {ticket.status}
-                                                </span>
+                                                </Badge>
                                                 <span className="text-xs text-slate-500 dark:text-slate-400">| Pelapor: {ticket.reporter}</span>
                                             </div>
                                             <h4 className="font-bold text-slate-900 dark:text-white mt-1.5">{ticket.asset}</h4>
@@ -87,64 +90,60 @@ export default function Pengaduan() {
                                     </div>
                                 ))}
                             </div>
-                        </div>
-                    </div>
+                        </CardContent>
+                    </Card>
 
                 </div>
             </div>
 
             {/* MOCK COMPLAINT MODAL FORM */}
-            {formOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 dark:bg-black/80 backdrop-blur-sm">
-                    <div className="w-full max-w-md bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl space-y-5 text-slate-900 dark:text-white">
-                        <div className="flex justify-between items-center">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white font-serif">Laporkan Kerusakan Aset</h3>
-                            <button onClick={() => setFormOpen(false)} className="rounded-full p-1.5 text-slate-500 dark:text-slate-400 hover:bg-[#1a1a1a]">
-                                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                            </button>
-                        </div>
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            <div>
-                                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1.5">Pilih Aset Bermasalah</label>
-                                <input 
-                                    type="text" 
-                                    required
-                                    value={formData.asset}
-                                    onChange={(e) => setFormData({ ...formData, asset: e.target.value })}
-                                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 border-slate-300 dark:border-slate-800 p-2.5 text-sm text-slate-900 dark:text-white focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all" 
-                                    placeholder="Contoh: Laptop Lenovo L14 / AC Ruang Utama" 
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1.5">Kategori Barang</label>
-                                <select 
-                                    value={formData.category}
-                                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 p-2.5 text-sm text-slate-700 dark:text-slate-300 focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all"
-                                >
-                                    <option value="Komputer">Komputer / Laptop</option>
-                                    <option value="Kamera">Kamera / Audio</option>
-                                    <option value="Fasilitas">Fasilitas Ruangan</option>
-                                    <option value="Kendaraan">Kendaraan Dinas</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1.5">Detail Kronologi Kerusakan</label>
-                                <textarea 
-                                    required
-                                    value={formData.desc}
-                                    onChange={(e) => setFormData({ ...formData, desc: e.target.value })}
-                                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 border-slate-300 dark:border-slate-800 p-2.5 text-sm text-slate-900 dark:text-white focus:border-[#E8192C] focus:ring-0 focus:outline-none transition-all h-28" 
-                                    placeholder="Jelaskan detail kendala barang, indikasi kerusakan, atau kronologi kejadian..." 
-                                />
-                            </div>
-                            <button type="submit" className="w-full rounded-xl bg-gradient-to-r from-[#C0172A] to-[#8B0000] border border-red-500/30 py-3 text-sm font-semibold text-white hover:from-[#E8192C] hover:to-[#C0172A] shadow-md transition-all">
-                                Kirim Pengaduan Tiket
-                            </button>
-                        </form>
-                    </div>
+            <Modal show={formOpen} onClose={() => setFormOpen(false)} maxWidth="md" className="p-6 space-y-5">
+                <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-bold text-foreground font-serif">Laporkan Kerusakan Aset</h3>
+                    <button onClick={() => setFormOpen(false)} className="rounded-full p-1.5 text-muted hover:bg-background cursor-pointer">
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
                 </div>
-            )}
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <Label htmlFor="asset">Pilih Aset Bermasalah</Label>
+                        <Input 
+                            type="text" 
+                            id="asset"
+                            required
+                            value={formData.asset}
+                            onChange={(e) => setFormData({ ...formData, asset: e.target.value })}
+                            placeholder="Contoh: Laptop Lenovo L14 / AC Ruang Utama" 
+                        />
+                    </div>
+                    <div>
+                        <Label htmlFor="category">Kategori Barang</Label>
+                        <Select 
+                            id="category"
+                            value={formData.category}
+                            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        >
+                            <option value="Komputer">Komputer / Laptop</option>
+                            <option value="Kamera">Kamera / Audio</option>
+                            <option value="Fasilitas">Fasilitas Ruangan</option>
+                            <option value="Kendaraan">Kendaraan Dinas</option>
+                        </Select>
+                    </div>
+                    <div>
+                        <Label htmlFor="desc">Detail Kronologi Kerusakan</Label>
+                        <Textarea 
+                            id="desc"
+                            required
+                            value={formData.desc}
+                            onChange={(e) => setFormData({ ...formData, desc: e.target.value })}
+                            placeholder="Jelaskan detail kendala barang, indikasi kerusakan, atau kronologi kejadian..." 
+                        />
+                    </div>
+                    <Button type="submit" variant="primary" className="w-full">
+                        Kirim Pengaduan Tiket
+                    </Button>
+                </form>
+            </Modal>
         </AuthenticatedLayout>
     );
 }
