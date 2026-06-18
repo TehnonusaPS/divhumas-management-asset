@@ -53,3 +53,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+if (app()->environment('local')) {
+    Route::get('/dev/components', function () {
+        return Inertia::render('Dev/ComponentShowcase');
+    })->name('dev.components');
+}
