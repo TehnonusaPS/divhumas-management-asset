@@ -38,6 +38,12 @@ import Progress from '@/Components/ui/Progress';
 import { Popover, PopoverTrigger, PopoverContent } from '@/Components/ui/Popover';
 import { RadioGroup, RadioGroupItem } from '@/Components/ui/RadioGroup';
 import Slider from '@/Components/ui/Slider';
+import DatePicker from '@/Components/ui/DatePicker';
+import DateRangePicker from '@/Components/ui/DateRangePicker';
+import FileUpload from '@/Components/ui/FileUpload';
+import FilterSearchBar from '@/Components/ui/FilterSearchBar';
+import FormModal from '@/Components/ui/FormModal';
+import FormDrawer from '@/Components/ui/FormDrawer';
 
 
 
@@ -54,6 +60,20 @@ export default function ComponentShowcase() {
     // States for Popover, Slider, and RadioGroup
     const [sliderVal, setSliderVal] = useState(65);
     const [radioVal, setRadioVal] = useState('it');
+
+    // States for new components
+    const [datePickerValue, setDatePickerValue] = useState('');
+    const [dateRangeValue, setDateRangeValue] = useState({ startDate: '', endDate: '' });
+    const [uploadedImage, setUploadedImage] = useState(null);
+    const [uploadedFile, setUploadedFile] = useState(null);
+    const [filterKeyword, setFilterKeyword] = useState('');
+    const [filterKategori, setFilterKategori] = useState('');
+    const [filterPolda, setFilterPolda] = useState('');
+    const [filterDate, setFilterDate] = useState('');
+    const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+    const [isFormDrawerOpen, setIsFormDrawerOpen] = useState(false);
+    const [formLoading, setFormLoading] = useState(false);
+    const [formData, setFormData] = useState({ nama: '', kategori: '', kode: '', lokasi: '', tanggal: '', keterangan: '', gambar: null });
 
     // Filter helper
     const match = (keywords) => {
@@ -779,6 +799,325 @@ export default function ComponentShowcase() {
                                         </PopoverContent>
                                     </Popover>
                                 </div>
+                            </ShowcaseItem>
+                        </ShowcaseSection>
+
+                        {/* SECTION 10: DATE PICKERS */}
+                        <ShowcaseSection
+                            title="Date Pickers"
+                            description="Komponen pemilih tanggal tunggal dan pemilih rentang tanggal dengan kalender interaktif dan format Indonesia."
+                            match={match('date picker tanggal calendar kalender range rentang')}
+                        >
+                            <ShowcaseItem label="DatePicker (Pemilih Tanggal Tunggal)">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-muted uppercase tracking-wider">Tanggal Pengadaan</label>
+                                        <DatePicker
+                                            value={datePickerValue}
+                                            onChange={setDatePickerValue}
+                                            placeholder="Pilih Tanggal Pengadaan"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-muted uppercase tracking-wider">Hasil State (YYYY-MM-DD)</label>
+                                        <div className="px-4 py-2.5 rounded-xl border border-border bg-card/50 text-sm font-mono">
+                                            {datePickerValue || <span className="text-muted/60">Belum dipilih</span>}
+                                        </div>
+                                        <p className="text-[10px] text-muted">
+                                            Tampilan UI: <span className="font-bold text-foreground">{datePickerValue ? datePickerValue.split('-').reverse().join('-') : '—'}</span> | Value: <span className="font-bold text-foreground">{datePickerValue || '—'}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="DateRangePicker (Pemilih Rentang Tanggal)">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-muted uppercase tracking-wider">Periode Laporan</label>
+                                        <DateRangePicker
+                                            value={dateRangeValue}
+                                            onChange={setDateRangeValue}
+                                            placeholder="Pilih Rentang Tanggal"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-muted uppercase tracking-wider">Hasil State (Object)</label>
+                                        <div className="px-4 py-2.5 rounded-xl border border-border bg-card/50 text-sm font-mono">
+                                            {dateRangeValue.startDate && dateRangeValue.endDate
+                                                ? <span>{'{ startDate: "' + dateRangeValue.startDate + '", endDate: "' + dateRangeValue.endDate + '" }'}</span>
+                                                : <span className="text-muted/60">Belum dipilih</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </ShowcaseItem>
+                        </ShowcaseSection>
+
+                        {/* SECTION 11: FILE UPLOAD */}
+                        <ShowcaseSection
+                            title="File & Image Upload"
+                            description="Komponen unggah file dengan dua varian: image (drag-drop + preview) dan file (progress bar + info dokumen)."
+                            match={match('file upload image unggah gambar dokumen drag drop')}
+                        >
+                            <ShowcaseItem label="Varian Image (Upload Gambar)">
+                                <div className="max-w-md">
+                                    <FileUpload
+                                        variant="image"
+                                        value={uploadedImage}
+                                        onChange={setUploadedImage}
+                                        label="Foto Aset"
+                                        maxSize={5 * 1024 * 1024}
+                                        accept=".jpg,.jpeg,.png,.webp"
+                                    />
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Varian File (Upload Dokumen)">
+                                <div className="max-w-md">
+                                    <FileUpload
+                                        variant="file"
+                                        value={uploadedFile}
+                                        onChange={setUploadedFile}
+                                        label="Dokumen Pendukung"
+                                        maxSize={10 * 1024 * 1024}
+                                        accept=".pdf,.doc,.docx,.xls,.xlsx"
+                                    />
+                                </div>
+                            </ShowcaseItem>
+                        </ShowcaseSection>
+
+                        {/* SECTION 12: FILTER SEARCH BAR */}
+                        <ShowcaseSection
+                            title="Filter Search Bar"
+                            description="Komponen kontainer pencarian dan penyaringan data dalam bentuk Card dengan grid layout yang fleksibel."
+                            match={match('filter search bar cari pencarian saring grid')}
+                        >
+                            <ShowcaseItem label="FilterSearchBar (4 Kolom Layout)">
+                                <FilterSearchBar
+                                    title="Pencarian Aset"
+                                    cols={4}
+                                    onSearch={() => alert('Pencarian: ' + JSON.stringify({ filterKeyword, filterKategori, filterPolda, filterDate }))}
+                                    onReset={() => { setFilterKeyword(''); setFilterKategori(''); setFilterPolda(''); setFilterDate(''); }}
+                                >
+                                    <FilterSearchBar.Item label="Kata Kunci">
+                                        <Input
+                                            placeholder="Cari nama aset..."
+                                            value={filterKeyword}
+                                            onChange={(e) => setFilterKeyword(e.target.value)}
+                                        />
+                                    </FilterSearchBar.Item>
+                                    <FilterSearchBar.Item label="Kategori">
+                                        <Select value={filterKategori} onChange={(e) => setFilterKategori(e.target.value)}>
+                                            <option value="">Semua Kategori</option>
+                                            <option value="it">Perangkat IT</option>
+                                            <option value="multimedia">Alat Multimedia</option>
+                                            <option value="network">Jaringan</option>
+                                        </Select>
+                                    </FilterSearchBar.Item>
+                                    <FilterSearchBar.Item label="Unit Polda">
+                                        <Select value={filterPolda} onChange={(e) => setFilterPolda(e.target.value)}>
+                                            <option value="">Semua Polda</option>
+                                            <option value="metro">Polda Metro Jaya</option>
+                                            <option value="jabar">Polda Jawa Barat</option>
+                                            <option value="jatim">Polda Jawa Timur</option>
+                                        </Select>
+                                    </FilterSearchBar.Item>
+                                    <FilterSearchBar.Item label="Tanggal Pengadaan">
+                                        <DatePicker
+                                            value={filterDate}
+                                            onChange={setFilterDate}
+                                            placeholder="Pilih Tanggal"
+                                        />
+                                    </FilterSearchBar.Item>
+                                </FilterSearchBar>
+                            </ShowcaseItem>
+                        </ShowcaseSection>
+
+                        {/* SECTION 13: FORM MODAL & FORM DRAWER */}
+                        <ShowcaseSection
+                            title="Form Modal & Form Drawer"
+                            description="Komponen form overlay interchangeable. Developer dapat menukar antara Modal dan Drawer hanya dengan mengganti tag komponen tanpa mengubah logika state."
+                            match={match('form modal drawer tambah edit slide overlay interchangeable')}
+                        >
+                            <ShowcaseItem label="Perbandingan FormModal vs FormDrawer">
+                                <div className="flex flex-wrap gap-4">
+                                    <Button variant="primary" onClick={() => setIsFormModalOpen(true)}>
+                                        <PlusIcon className="h-4 w-4 mr-1.5" />
+                                        Tambah via Modal
+                                    </Button>
+                                    <Button variant="outline" onClick={() => setIsFormDrawerOpen(true)}>
+                                        <PlusIcon className="h-4 w-4 mr-1.5" />
+                                        Tambah via Drawer
+                                    </Button>
+                                </div>
+
+                                <div className="mt-4 p-4 bg-card/40 border border-border rounded-xl">
+                                    <p className="text-[10px] font-bold text-muted uppercase tracking-wider mb-2">Keterangan Developer</p>
+                                    <p className="text-xs text-muted leading-relaxed">
+                                        Kedua tombol di atas membuka formulir yang <span className="font-bold text-foreground">identik</span>, tetapi ditampilkan dalam overlay yang berbeda (modal sentral vs slide-over drawer). 
+                                        Anda hanya perlu mengganti <code className="px-1.5 py-0.5 rounded-md bg-primary/10 text-primary text-[10px] font-mono">&lt;FormModal&gt;</code> menjadi <code className="px-1.5 py-0.5 rounded-md bg-primary/10 text-primary text-[10px] font-mono">&lt;FormDrawer&gt;</code> tanpa mengubah logika apapun.
+                                    </p>
+                                </div>
+
+                                {/* FormModal Demo */}
+                                <FormModal
+                                    open={isFormModalOpen}
+                                    onClose={() => setIsFormModalOpen(false)}
+                                    title="Tambah Aset Baru"
+                                    description="Masukkan data aset baru ke dalam sistem inventarisasi divhumas polri."
+                                    loading={formLoading}
+                                    submitText="Simpan Aset"
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        setFormLoading(true);
+                                        setTimeout(() => {
+                                            setFormLoading(false);
+                                            setIsFormModalOpen(false);
+                                            setFormData({ nama: '', kategori: '', gambar: null });
+                                            alert('Data berhasil disimpan (demo)');
+                                        }, 2000);
+                                    }}
+                                >
+                                    <div className="space-y-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Nama Aset</label>
+                                                <Input
+                                                    placeholder="Contoh: MacBook Pro 16 M3"
+                                                    value={formData.nama}
+                                                    onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Kode Aset</label>
+                                                <Input
+                                                    placeholder="Contoh: AST-2026-010"
+                                                    value={formData.kode}
+                                                    onChange={(e) => setFormData({ ...formData, kode: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Kategori</label>
+                                                <Select value={formData.kategori} onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}>
+                                                    <option value="">Pilih Kategori...</option>
+                                                    <option value="it">Perangkat IT</option>
+                                                    <option value="multimedia">Alat Multimedia</option>
+                                                    <option value="network">Jaringan</option>
+                                                </Select>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Lokasi</label>
+                                                <Input
+                                                    placeholder="Contoh: Ruang Server Lt.2"
+                                                    value={formData.lokasi}
+                                                    onChange={(e) => setFormData({ ...formData, lokasi: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Tanggal Pengadaan</label>
+                                                <DatePicker
+                                                    value={formData.tanggal}
+                                                    onChange={(val) => setFormData({ ...formData, tanggal: val })}
+                                                    placeholder="Pilih Tanggal"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Keterangan</label>
+                                                <Textarea
+                                                    placeholder="Tuliskan keterangan aset..."
+                                                    value={formData.keterangan}
+                                                    onChange={(e) => setFormData({ ...formData, keterangan: e.target.value })}
+                                                />
+                                            </div>
+                                        </div>
+                                        <FileUpload
+                                            variant="image"
+                                            value={formData.gambar}
+                                            onChange={(file) => setFormData({ ...formData, gambar: file })}
+                                            label="Foto Aset"
+                                        />
+                                    </div>
+                                </FormModal>
+
+                                {/* FormDrawer Demo */}
+                                <FormDrawer
+                                    open={isFormDrawerOpen}
+                                    onClose={() => setIsFormDrawerOpen(false)}
+                                    title="Tambah Aset Baru"
+                                    description="Masukkan data aset baru ke dalam sistem inventarisasi divhumas polri."
+                                    loading={formLoading}
+                                    submitText="Simpan Aset"
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        setFormLoading(true);
+                                        setTimeout(() => {
+                                            setFormLoading(false);
+                                            setIsFormDrawerOpen(false);
+                                            setFormData({ nama: '', kategori: '', gambar: null });
+                                            alert('Data berhasil disimpan (demo)');
+                                        }, 2000);
+                                    }}
+                                >
+                                    <div className="space-y-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Nama Aset</label>
+                                                <Input
+                                                    placeholder="Contoh: MacBook Pro 16 M3"
+                                                    value={formData.nama}
+                                                    onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Kode Aset</label>
+                                                <Input
+                                                    placeholder="Contoh: AST-2026-010"
+                                                    value={formData.kode}
+                                                    onChange={(e) => setFormData({ ...formData, kode: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Kategori</label>
+                                                <Select value={formData.kategori} onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}>
+                                                    <option value="">Pilih Kategori...</option>
+                                                    <option value="it">Perangkat IT</option>
+                                                    <option value="multimedia">Alat Multimedia</option>
+                                                    <option value="network">Jaringan</option>
+                                                </Select>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Lokasi</label>
+                                                <Input
+                                                    placeholder="Contoh: Ruang Server Lt.2"
+                                                    value={formData.lokasi}
+                                                    onChange={(e) => setFormData({ ...formData, lokasi: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Tanggal Pengadaan</label>
+                                                <DatePicker
+                                                    value={formData.tanggal}
+                                                    onChange={(val) => setFormData({ ...formData, tanggal: val })}
+                                                    placeholder="Pilih Tanggal"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold text-muted uppercase tracking-wider">Keterangan</label>
+                                                <Textarea
+                                                    placeholder="Tuliskan keterangan aset..."
+                                                    value={formData.keterangan}
+                                                    onChange={(e) => setFormData({ ...formData, keterangan: e.target.value })}
+                                                />
+                                            </div>
+                                        </div>
+                                        <FileUpload
+                                            variant="image"
+                                            value={formData.gambar}
+                                            onChange={(file) => setFormData({ ...formData, gambar: file })}
+                                            label="Foto Aset"
+                                        />
+                                    </div>
+                                </FormDrawer>
                             </ShowcaseItem>
                         </ShowcaseSection>
                     </div>
