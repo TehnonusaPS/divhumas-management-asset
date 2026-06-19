@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import { Squares2X2Icon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { PlusIcon, Cog6ToothIcon, TrashIcon, CircleStackIcon, WrenchScrewdriverIcon, CheckCircleIcon } from '@heroicons/react/20/solid';
 import ShowcaseSection, { ShowcaseItem } from './components/ShowcaseSection';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Button from '@/Components/ui/Button';
 import Input from '@/Components/ui/Input';
 import Select from '@/Components/ui/Select';
@@ -89,53 +90,38 @@ export default function ComponentShowcase() {
     ];
 
     return (
-        <>
+        <AuthenticatedLayout
+            header={
+                <div>
+                    <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white font-serif">
+                        UI Component Showcase
+                    </h2>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                        Katalog dan dokumentasi komponen UI reusable untuk sistem manajemen aset Divhumas Polri.
+                    </p>
+                </div>
+            }
+        >
             <Head title="UI Component Showcase" />
 
-            {/* Background elements */}
-            <div className="bg-scene" />
-            <div className="grid-overlay" />
-
-            <div className="min-h-screen bg-transparent text-foreground relative z-10 transition-colors duration-300">
-                {/* Header */}
-                <header className="sticky top-0 z-50 bg-card/85 backdrop-blur-md border-b border-border px-6 py-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <div className="bg-primary/10 p-2 rounded-xl border border-primary/20">
-                            <Squares2X2Icon className="h-6 w-6 text-primary" />
-                        </div>
-                        <div>
-                            <h1 className="font-extrabold text-lg tracking-wider text-foreground">UI SHOWCASE</h1>
-                            <span className="text-[10px] font-bold text-primary tracking-widest block uppercase">Divhumas Management Asset</span>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                        <ThemeToggle />
-                        <Button variant="primary" size="sm" href="/">
-                            Kembali ke Beranda
-                        </Button>
-                    </div>
-                </header>
-
-                {/* Main Content */}
-                <main className="max-w-7xl mx-auto px-6 py-10 space-y-10">
+            <div className="py-8">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
                     {/* Intro */}
-                    <div className="bg-card border border-border rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 shadow-sm">
                         <div className="space-y-2 max-w-2xl">
-                            <h2 className="text-3xl font-extrabold tracking-tight">Component Gallery</h2>
-                            <p className="text-muted text-sm leading-relaxed">
-                                Dokumentasi dan katalog komponen UI reusable untuk sistem manajemen aset Divhumas Polri.
-                                Seluruh komponen dirancang agar responsif terhadap mode terang/gelap secara otomatis.
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-white font-serif">Component Gallery</h2>
+                            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                                Halaman ini mendokumentasikan seluruh komponen UI kustom dan primitif yang terstandarisasi untuk mode terang dan gelap.
                             </p>
                         </div>
                         <div className="relative w-full md:w-80">
-                            <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted" />
+                            <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                             <input
                                 type="text"
                                 placeholder="Cari komponen (contoh: button, input)..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-sm text-slate-800 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all outline-none"
                             />
                         </div>
                     </div>
@@ -327,9 +313,16 @@ export default function ComponentShowcase() {
                                 />
                             </ShowcaseItem>
 
-                            <ShowcaseItem label="Navigasi Atas (Navbar)">
-                                <div className="relative border border-border bg-[#0A0A0A] rounded-2xl h-24 overflow-hidden w-full">
-                                    <Navbar auth={{ user: { name: 'Aipda Budi Santoso', roles: ['super-admin'] } }} />
+                            <ShowcaseItem label="Navigasi Atas (Navbar - Reusable / Custom Items)">
+                                <div className="relative border border-border bg-slate-100 dark:bg-[#0A0A0A] rounded-2xl h-24 overflow-hidden w-full transition-colors duration-300">
+                                    <Navbar 
+                                        auth={{ user: { name: 'Aipda Budi Santoso', roles: ['super-admin'] } }} 
+                                        items={[
+                                            { label: 'Layanan Publik', href: '#' },
+                                            { label: 'Kontak Kepolisian', href: '#' },
+                                            { label: 'Pusat Bantuan', href: '#', active: true }
+                                        ]}
+                                    />
                                 </div>
                             </ShowcaseItem>
 
@@ -340,9 +333,15 @@ export default function ComponentShowcase() {
                                 </div>
                             </ShowcaseItem>
 
-                            <ShowcaseItem label="Footer Aplikasi (Footer)">
-                                <div className="border border-border rounded-2xl overflow-hidden w-full bg-slate-900">
-                                    <FooterComponent />
+                            <ShowcaseItem label="Footer Aplikasi (Footer - Reusable / Custom Links)">
+                                <div className="border border-border rounded-2xl overflow-hidden w-full bg-slate-100 dark:bg-slate-900 transition-colors duration-300">
+                                    <FooterComponent 
+                                        links={[
+                                            { label: 'Hubungi Kami', href: '#' },
+                                            { label: 'Peta Situs', href: '#' },
+                                            { label: 'FAQ', href: '#' }
+                                        ]}
+                                    />
                                 </div>
                             </ShowcaseItem>
                         </ShowcaseSection>
@@ -782,13 +781,8 @@ export default function ComponentShowcase() {
                             </ShowcaseItem>
                         </ShowcaseSection>
                     </div>
-                </main>
-
-                {/* Footer */}
-                <footer className="border-t border-border mt-16 py-6 text-center text-xs text-muted bg-card">
-                    &copy; {new Date().getFullYear()} UI Showcase - Divisi Hubungan Masyarakat Polri.
-                </footer>
+                </div>
             </div>
-        </>
+        </AuthenticatedLayout>
     );
 }
