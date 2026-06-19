@@ -1,11 +1,8 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+
 import { Link, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
-import Header from '@/Components/Header';
-import Footer from '@/Components/Footer';
+import Navbar from '@/Components/navbar/Navbar';
+import Footer from '@/Components/footer/Footer';
 
 export default function AuthenticatedLayout({ header, children }) {
     const { auth } = usePage().props;
@@ -52,7 +49,7 @@ export default function AuthenticatedLayout({ header, children }) {
                 <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
                 
                 {/* The Top Navigation Bar */}
-                <Header auth={auth} theme={theme} toggleTheme={toggleTheme} />
+                <Navbar auth={auth} theme={theme} toggleTheme={toggleTheme} />
 
                 {/* The Page Title Area */}
                 {header && (
