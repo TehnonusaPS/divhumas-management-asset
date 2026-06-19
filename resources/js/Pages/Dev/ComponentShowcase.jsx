@@ -9,14 +9,51 @@ import Select from '@/Components/ui/Select';
 import Textarea from '@/Components/ui/Textarea';
 import Checkbox from '@/Components/ui/Checkbox';
 import Badge from '@/Components/ui/Badge';
-import DataTable from '@/Components/DataTable';
-import StatCard from '@/Components/StatCard';
-import ThemeToggle from '@/Components/ThemeToggle';
-import PageHeader from '@/Components/PageHeader';
+import DataTable from '@/Components/data-table/DataTable';
+import StatCard from '@/Components/stat-card/StatCard';
+import ThemeToggle from '@/Components/theme-toggle/ThemeToggle';
+import PageHeader from '@/Components/page-header/PageHeader';
+import Navbar from '@/Components/navbar/Navbar';
+import FooterComponent from '@/Components/footer/Footer';
+
+
+// New primitive UI components
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/Components/ui/Card';
+import Separator from '@/Components/ui/Separator';
+import Skeleton from '@/Components/ui/Skeleton';
+import { Alert, AlertTitle, AlertDescription } from '@/Components/ui/Alert';
+import { Avatar, AvatarImage, AvatarFallback } from '@/Components/ui/Avatar';
+import Switch from '@/Components/ui/Switch';
+import Tooltip from '@/Components/ui/Tooltip';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/Components/ui/Tabs';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/Components/ui/Accordion';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@/Components/ui/Breadcrumb';
+import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, DialogClose } from '@/Components/ui/Dialog';
+import { Sheet, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription, SheetClose } from '@/Components/ui/Sheet';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/Components/ui/DropdownMenu';
+
+// Other interactive primitives
+import Kbd from '@/Components/ui/Kbd';
+import Progress from '@/Components/ui/Progress';
+import { Popover, PopoverTrigger, PopoverContent } from '@/Components/ui/Popover';
+import { RadioGroup, RadioGroupItem } from '@/Components/ui/RadioGroup';
+import Slider from '@/Components/ui/Slider';
+
+
 
 export default function ComponentShowcase() {
     const [searchQuery, setSearchQuery] = useState('');
     const [testCheckbox, setTestCheckbox] = useState(false);
+    
+    // States for new interactive components
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isSheetOpen, setIsSheetOpen] = useState(false);
+    const [switchOne, setSwitchOne] = useState(false);
+    const [switchTwo, setSwitchTwo] = useState(true);
+    
+    // States for Popover, Slider, and RadioGroup
+    const [sliderVal, setSliderVal] = useState(65);
+    const [radioVal, setRadioVal] = useState('it');
 
     // Filter helper
     const match = (keywords) => {
@@ -288,6 +325,460 @@ export default function ComponentShowcase() {
                                     columns={columns}
                                     data={sampleAssets}
                                 />
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Navigasi Atas (Navbar)">
+                                <div className="relative border border-border bg-[#0A0A0A] rounded-2xl h-24 overflow-hidden w-full">
+                                    <Navbar auth={{ user: { name: 'Aipda Budi Santoso', roles: ['super-admin'] } }} />
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Tombol Toggle Tema (ThemeToggle)">
+                                <div className="flex items-center gap-4 p-4 border border-border bg-card/40 rounded-2xl w-fit">
+                                    <ThemeToggle />
+                                    <span className="text-xs text-muted">Klik ikon matahari/bulan untuk mengubah tema aplikasi secara global</span>
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Footer Aplikasi (Footer)">
+                                <div className="border border-border rounded-2xl overflow-hidden w-full bg-slate-900">
+                                    <FooterComponent />
+                                </div>
+                            </ShowcaseItem>
+                        </ShowcaseSection>
+
+                        {/* SECTION 5: NEW CARDS, SEPARATORS, SKELETONS */}
+                        <ShowcaseSection
+                            title="Cards & Visual Indicators"
+                            description="Komponen struktural Card, Separator garis pemisah, dan Skeleton loading placeholder."
+                            match={match('card separator skeleton divider loading')}
+                        >
+                            <ShowcaseItem label="Struktur Card (Card Components)">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>Profil Kepolisian Aset</CardTitle>
+                                            <CardDescription>Detail data inventarisasi divisi humas polri pusat.</CardDescription>
+                                        </CardHeader>
+                                        <CardContent className="space-y-2">
+                                            <p className="text-xs text-foreground">
+                                                Aset di ruangan ini mencakup kamera video profesional, mikrofon wireless, drone, serta stasiun kerja editing video.
+                                            </p>
+                                            <div className="flex gap-2 items-center">
+                                                <span className="text-xs font-bold text-muted uppercase">Lokasi:</span>
+                                                <Badge variant="info">Studio 1 Utama</Badge>
+                                            </div>
+                                        </CardContent>
+                                        <CardFooter className="justify-between">
+                                            <span className="text-[10px] text-muted font-bold">Terakhir diupdate: 15 menit lalu</span>
+                                            <Button variant="outline" size="sm">Detail</Button>
+                                        </CardFooter>
+                                    </Card>
+
+                                    <Card className="border-primary/20 bg-primary/5">
+                                        <CardHeader>
+                                            <CardTitle className="text-primary">Aset Kategori Khusus</CardTitle>
+                                            <CardDescription className="dark:text-red-300">Aset dengan hak akses terbatas dan pengawasan ekstra.</CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <p className="text-xs text-foreground">
+                                                Seluruh peminjaman drone DJI Inspire 3 dan server encoder portable wajib mendapatkan approval Kabag.
+                                            </p>
+                                        </CardContent>
+                                        <CardFooter className="bg-primary/10 border-primary/20">
+                                            <Button variant="primary" size="sm" className="w-full">Ajukan Izin Peminjaman</Button>
+                                        </CardFooter>
+                                    </Card>
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Separator & Skeleton Loader">
+                                <div className="space-y-6">
+                                    <div className="p-4 border border-border rounded-xl bg-card/50 space-y-3">
+                                        <h4 className="text-xs font-bold text-foreground">Daftar Audit Internal</h4>
+                                        <Separator />
+                                        <div className="flex justify-between items-center text-xs text-muted">
+                                            <span>Kamera DSLR Canon</span>
+                                            <Badge variant="success">Normal</Badge>
+                                        </div>
+                                        <Separator />
+                                        <div className="flex justify-between items-center text-xs text-muted">
+                                            <span>Tripod Manfrotto</span>
+                                            <Badge variant="warning">Perbaikan</Badge>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-4 border border-border rounded-xl bg-card/50 space-y-4">
+                                        <h4 className="text-xs font-bold text-foreground">Loading Placeholder (Skeleton)</h4>
+                                        <div className="flex items-center gap-4">
+                                            <Skeleton className="h-10 w-10" variant="circle" />
+                                            <div className="space-y-2 flex-1">
+                                                <Skeleton className="h-3 w-1/3" />
+                                                <Skeleton className="h-2 w-1/2" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ShowcaseItem>
+                        </ShowcaseSection>
+
+                        {/* SECTION 6: ALERTS & OVERLAYS */}
+                        <ShowcaseSection
+                            title="Alerts, Dialogs & Sheets"
+                            description="Banner notifikasi Alert, serta overlay modal seperti Dialog dan slide-over Sheet."
+                            match={match('alert dialog sheet modal drawer overlay popup banner')}
+                        >
+                            <ShowcaseItem label="Banner Notifikasi (Alerts)">
+                                <div className="space-y-4">
+                                    <Alert variant="default">
+                                        <AlertTitle>Informasi Sistem</AlertTitle>
+                                        <AlertDescription>Sistem audit aset dijadwalkan maintenance pada pukul 23:00 WIB malam ini.</AlertDescription>
+                                    </Alert>
+                                    <Alert variant="success">
+                                        <AlertTitle>Data Berhasil Tersimpan</AlertTitle>
+                                        <AlertDescription>Registrasi aset baru AST-2026-009 telah berhasil diverifikasi oleh sistem.</AlertDescription>
+                                    </Alert>
+                                    <Alert variant="warning">
+                                        <AlertTitle>Peringatan Pengembalian</AlertTitle>
+                                        <AlertDescription>Sebanyak 3 aset multimedia telah melewati batas waktu pengembalian yang ditentukan.</AlertDescription>
+                                    </Alert>
+                                    <Alert variant="danger">
+                                        <AlertTitle>Error Sinkronisasi</AlertTitle>
+                                        <AlertDescription>Gagal menghubungkan ke server Polda Metro Jaya. Periksa koneksi jaringan Anda.</AlertDescription>
+                                    </Alert>
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Modal Overlays (Dialog & Sheet)">
+                                <div className="flex flex-wrap gap-4">
+                                    <Button variant="outline" onClick={() => setIsDialogOpen(true)}>
+                                        Buka Dialog Modal
+                                    </Button>
+                                    <Button variant="outline" onClick={() => setIsSheetOpen(true)}>
+                                        Buka Slide-Over Sheet (Drawer)
+                                    </Button>
+
+                                    {/* Dialog Component Showcase */}
+                                    <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+                                        <DialogContent>
+                                            <DialogClose onClick={() => setIsDialogOpen(false)} />
+                                            <DialogHeader>
+                                                <DialogTitle>Konfirmasi Hapus Aset</DialogTitle>
+                                                <DialogDescription>
+                                                    Tindakan ini tidak dapat dibatalkan. Data aset drone DJI Inspire akan dihapus permanen dari basis data humas polri.
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                            <div className="mt-4 p-4 border border-red-500/20 bg-red-500/5 rounded-xl text-xs text-red-600 dark:text-red-400">
+                                                <strong>Penting:</strong> Menghapus aset ini juga akan menghapus log riwayat peminjaman yang terkait dengannya.
+                                            </div>
+                                            <DialogFooter>
+                                                <Button variant="outline" size="sm" onClick={() => setIsDialogOpen(false)}>
+                                                    Batalkan
+                                                </Button>
+                                                <Button variant="danger" size="sm" onClick={() => setIsDialogOpen(false)}>
+                                                    Ya, Hapus Permanen
+                                                </Button>
+                                            </DialogFooter>
+                                        </DialogContent>
+                                    </Dialog>
+
+                                    {/* Sheet Component Showcase */}
+                                    <Sheet open={isSheetOpen} onClose={() => setIsSheetOpen(false)}>
+                                        <SheetContent side="right">
+                                            <SheetClose onClick={() => setIsSheetOpen(false)} />
+                                            <SheetHeader>
+                                                <SheetTitle>Filter Pencarian Aset</SheetTitle>
+                                                <SheetDescription>
+                                                    Saring daftar aset berdasarkan spesifikasi, tanggal pengadaan, dan unit penanggung jawab.
+                                                </SheetDescription>
+                                            </SheetHeader>
+                                            
+                                            <div className="flex-1 py-6 space-y-4 overflow-y-auto">
+                                                <div className="space-y-2">
+                                                    <label className="text-xs font-bold text-muted uppercase tracking-wider">Kondisi Fisik</label>
+                                                    <Select>
+                                                        <option value="">Semua Kondisi</option>
+                                                        <option value="good">Layak Pakai (Sangat Baik)</option>
+                                                        <option value="fair">Butuh Servis Ringan</option>
+                                                        <option value="broken">Rusak Berat</option>
+                                                    </Select>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="text-xs font-bold text-muted uppercase tracking-wider">Unit Polda</label>
+                                                    <Select>
+                                                        <option value="">Semua Polda</option>
+                                                        <option value="metro">Polda Metro Jaya</option>
+                                                        <option value="jabar">Polda Jawa Barat</option>
+                                                        <option value="jatim">Polda Jawa Timur</option>
+                                                    </Select>
+                                                </div>
+                                            </div>
+
+                                            <SheetFooter>
+                                                <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={() => setIsSheetOpen(false)}>
+                                                    Reset Filter
+                                                </Button>
+                                                <Button variant="primary" size="sm" className="w-full sm:w-auto" onClick={() => setIsSheetOpen(false)}>
+                                                    Terapkan Filter
+                                                </Button>
+                                            </SheetFooter>
+                                        </SheetContent>
+                                    </Sheet>
+                                </div>
+                            </ShowcaseItem>
+                        </ShowcaseSection>
+
+                        {/* SECTION 7: INTERACTIVE ELEMENTS */}
+                        <ShowcaseSection
+                            title="Interactive Elements"
+                            description="Komponen Switch toggle, Hover Tooltip, Dropdown Menu pilihan, dan navigasi Breadcrumb."
+                            match={match('switch toggle tooltip hover dropdown menu list select option breadcrumb')}
+                        >
+                            <ShowcaseItem label="Switch & Hover Tooltip">
+                                <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-12">
+                                    <div className="space-y-3">
+                                        <h4 className="text-xs font-bold text-muted uppercase tracking-wider">Switch Controls</h4>
+                                        <Switch
+                                            checked={switchOne}
+                                            onChange={setSwitchOne}
+                                            label="Aktifkan Notifikasi Email"
+                                        />
+                                        <Switch
+                                            checked={switchTwo}
+                                            onChange={setSwitchTwo}
+                                            variant="secondary"
+                                            label="Auto-Sikronisasi Server Pusat (Gold Theme)"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <h4 className="text-xs font-bold text-muted uppercase tracking-wider">Hover Tooltips</h4>
+                                        <div className="flex gap-4">
+                                            <Tooltip content="Membuka pengaturan profil polda" position="top">
+                                                <Button variant="outline" size="sm">Hover Me (Top)</Button>
+                                            </Tooltip>
+                                            <Tooltip content="Hapus data aset secara permanen" position="bottom" className="bg-red-600 dark:bg-red-900 border-red-500/20">
+                                                <Button variant="danger" size="sm">Hover Me (Bottom)</Button>
+                                            </Tooltip>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Navigasi Breadcrumbs">
+                                <Breadcrumb>
+                                    <BreadcrumbList>
+                                        <BreadcrumbItem>
+                                            <BreadcrumbLink href="/dev/components">Dashboard</BreadcrumbLink>
+                                        </BreadcrumbItem>
+                                        <BreadcrumbSeparator />
+                                        <BreadcrumbItem>
+                                            <BreadcrumbLink href="/dev/components">Polda Metro Jaya</BreadcrumbLink>
+                                        </BreadcrumbItem>
+                                        <BreadcrumbSeparator />
+                                        <BreadcrumbItem>
+                                            <BreadcrumbPage>Inventaris Kamera</BreadcrumbPage>
+                                        </BreadcrumbItem>
+                                    </BreadcrumbList>
+                                </Breadcrumb>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Dropdown Actions Menu">
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger className="px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-hover transition text-xs font-bold uppercase tracking-wider">
+                                        Pilihan Aksi Aset
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="left">
+                                        <DropdownMenuLabel>Aksi Cepat</DropdownMenuLabel>
+                                        <DropdownMenuItem onClick={() => alert('Pinjam Aset')}>
+                                            Ajukan Peminjaman
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => alert('Edit Aset')}>
+                                            Ubah Data Aset
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuLabel>Bahaya</DropdownMenuLabel>
+                                        <DropdownMenuItem className="text-red-500 dark:text-red-400 focus:bg-red-500/10 focus:text-red-600" onClick={() => alert('Hapus Aset')}>
+                                            Hapus Aset
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </ShowcaseItem>
+                        </ShowcaseSection>
+
+                        {/* SECTION 8: COLLAPSIBLES & TABS */}
+                        <ShowcaseSection
+                            title="Tabs & Collapsibles"
+                            description="Tampilan terorganisir menggunakan Tabs panel dan Accordion/Collapsible panel."
+                            match={match('tab panel accordion collapse info')}
+                        >
+                            <ShowcaseItem label="Accordion (Collapse Panels)">
+                                <Accordion>
+                                    <AccordionItem defaultOpen>
+                                        <AccordionTrigger>Bagaimana cara mengajukan peminjaman aset humas?</AccordionTrigger>
+                                        <AccordionContent>
+                                            Anda harus masuk ke menu Peminjaman Aset, pilih aset yang berstatus 'Tersedia', klik tombol 'Ajukan Peminjaman', isi formulir durasi dan tujuan peminjaman, lalu klik ajukan. Kabag Humas akan meninjau pengajuan Anda.
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                    <AccordionItem>
+                                        <AccordionTrigger>Siapa yang berwenang melakukan audit aset?</AccordionTrigger>
+                                        <AccordionContent>
+                                            Hanya pengguna dengan peran 'Super Admin' atau 'Audit Officer' yang memiliki otorisasi penuh untuk melakukan penyesuaian jumlah fisik aset dan merubah status kelayakan pada sistem.
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </Accordion>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Tabs Panel Switcher (Default Pill Variant)">
+                                <Tabs variant="default">
+                                    <TabsList>
+                                        <TabsTrigger>Daftar Aset</TabsTrigger>
+                                        <TabsTrigger>Pengajuan Aktif</TabsTrigger>
+                                        <TabsTrigger>Riwayat Audit</TabsTrigger>
+                                    </TabsList>
+                                    <TabsContent>
+                                        <div className="p-4 bg-card/40 border border-border rounded-2xl mt-4 text-xs space-y-2 text-muted">
+                                            <p className="font-bold text-foreground">Berikut ini adalah daftar aset terbaru:</p>
+                                            <ul className="list-disc pl-4 space-y-1">
+                                                <li>Canon DSLR Eos 5D - Studio Foto</li>
+                                                <li>Tripod Sirui Professional - Studio Video</li>
+                                                <li>Drone DJI Mavic 3 Pro - Gudang</li>
+                                            </ul>
+                                        </div>
+                                    </TabsContent>
+                                    <TabsContent>
+                                        <div className="p-4 bg-card/40 border border-border rounded-2xl mt-4 text-xs text-muted">
+                                            Tidak ada pengajuan peminjaman aktif saat ini. Silakan buat pengajuan baru jika dibutuhkan.
+                                        </div>
+                                    </TabsContent>
+                                    <TabsContent>
+                                        <div className="p-4 bg-card/40 border border-border rounded-2xl mt-4 text-xs text-muted">
+                                            Audit terakhir diselesaikan oleh Aipda Budi pada tanggal 12 Juni 2026 pukul 10:30 WIB.
+                                        </div>
+                                    </TabsContent>
+                                </Tabs>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Tabs Panel Switcher (Line Underline Variant)">
+                                <Tabs variant="line">
+                                    <TabsList>
+                                        <TabsTrigger>Data Inventaris</TabsTrigger>
+                                        <TabsTrigger>Peminjaman Aset</TabsTrigger>
+                                        <TabsTrigger>Riwayat Log</TabsTrigger>
+                                    </TabsList>
+                                    <TabsContent>
+                                        <div className="p-4 bg-card/40 border border-border rounded-2xl mt-4 text-xs text-muted space-y-2">
+                                            <p className="font-bold text-foreground">Status Inventarisasi Polda Metro:</p>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div className="p-3 bg-muted/10 rounded-xl">Total: 480 Aset</div>
+                                                <div className="p-3 bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 rounded-xl">Normal: 450 Aset</div>
+                                            </div>
+                                        </div>
+                                    </TabsContent>
+                                    <TabsContent>
+                                        <div className="p-4 bg-card/40 border border-border rounded-2xl mt-4 text-xs text-muted">
+                                            Semua unit polda sedang tertib dalam pengembalian barang peminjaman.
+                                        </div>
+                                    </TabsContent>
+                                    <TabsContent>
+                                        <div className="p-4 bg-card/40 border border-border rounded-2xl mt-4 text-xs text-muted">
+                                            Log log transaksi sistem berjalan sinkron dengan polda setempat.
+                                        </div>
+                                    </TabsContent>
+                                </Tabs>
+                            </ShowcaseItem>
+
+
+                            <ShowcaseItem label="Avatar & Profil Indikator">
+                                <div className="flex items-center gap-4">
+                                    <Avatar>
+                                        <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Polri Officer" />
+                                        <AvatarFallback>BS</AvatarFallback>
+                                    </Avatar>
+                                    <Avatar className="border-secondary/40">
+                                        <AvatarImage src="broken-url-test" alt="Fallback Test" />
+                                        <AvatarFallback className="bg-primary/10 text-primary">HP</AvatarFallback>
+                                    </Avatar>
+                                    <div className="text-xs">
+                                        <p className="font-bold text-foreground">Brigadir Eka Saputra</p>
+                                        <p className="text-[10px] text-muted uppercase tracking-wider">Operator Aset Humas</p>
+                                    </div>
+                                </div>
+                            </ShowcaseItem>
+                        </ShowcaseSection>
+
+                        {/* SECTION 9: OTHER UI PRIMITIVES */}
+                        <ShowcaseSection
+                            title="Other UI Primitives"
+                            description="Komponen tambahan: Popover kontainer info, Progress bar keterisian data, Radio Group pilihan unik, Slider range, dan Kbd shortcut."
+                            match={match('popover progress radio slider kbd range shortcut option')}
+                        >
+                            <ShowcaseItem label="Progress Bar & Keyboard Indicator (Kbd)">
+                                <div className="space-y-4">
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between items-center text-xs font-semibold">
+                                            <span>Kapasitas Penyimpanan Server Aset</span>
+                                            <span>{sliderVal}% Terisi</span>
+                                        </div>
+                                        <Progress value={sliderVal} variant="primary" />
+                                    </div>
+
+                                    <div className="flex flex-wrap gap-2 items-center text-xs">
+                                        <span>Gunakan shortcut</span>
+                                        <Kbd>⌘</Kbd>
+                                        <span>+</span>
+                                        <Kbd>K</Kbd>
+                                        <span>untuk membuka pencarian aset cepat. Tekan</span>
+                                        <Kbd>ESC</Kbd>
+                                        <span>untuk membatalkan.</span>
+                                    </div>
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Slider (Range Input)">
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-muted uppercase tracking-wider">Sesuaikan Volume Alert Sound / Progres ({sliderVal}%)</label>
+                                    <Slider 
+                                        value={sliderVal} 
+                                        onChange={(e) => setSliderVal(Number(e.target.value))} 
+                                        min={0}
+                                        max={100}
+                                    />
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Radio Group (Selection)">
+                                <div className="space-y-3">
+                                    <label className="text-xs font-bold text-muted uppercase tracking-wider">Filter Kategori (Pilih Salah Satu)</label>
+                                    <RadioGroup value={radioVal} onChange={setRadioVal}>
+                                        <RadioGroupItem value="it" label="Perangkat IT & Server" />
+                                        <RadioGroupItem value="multimedia" label="Multimedia & Studio" />
+                                        <RadioGroupItem value="network" label="Jaringan & Fiber Optik" />
+                                    </RadioGroup>
+                                    <div className="text-xs text-muted">
+                                        Kategori terpilih: <span className="font-bold text-foreground uppercase">{radioVal}</span>
+                                    </div>
+                                </div>
+                            </ShowcaseItem>
+
+                            <ShowcaseItem label="Popover Container">
+                                <div className="flex gap-4">
+                                    <Popover>
+                                        <PopoverTrigger className="px-4 py-2 border border-border bg-card text-foreground rounded-xl hover:bg-muted/10 transition text-xs font-bold uppercase tracking-wider">
+                                            Petunjuk Peminjaman
+                                        </PopoverTrigger>
+                                        <PopoverContent align="center" className="w-80">
+                                            <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Alur Pengajuan</h4>
+                                            <Separator className="my-2" />
+                                            <p className="text-[11px] text-muted leading-relaxed">
+                                                1. Pilih aset yang ingin dipinjam.<br />
+                                                2. Masukkan tanggal mulai & pengembalian.<br />
+                                                3. Klik Ajukan Peminjaman.<br />
+                                                4. Tunggu persetujuan Kabag dalam 1x24 jam.
+                                            </p>
+                                        </PopoverContent>
+                                    </Popover>
+                                </div>
                             </ShowcaseItem>
                         </ShowcaseSection>
                     </div>
